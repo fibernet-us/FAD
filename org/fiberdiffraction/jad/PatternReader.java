@@ -69,8 +69,7 @@ public class PatternReader {
 				return readDat(fname, w, h);
 			} catch (Exception e) {
 				e.printStackTrace();
-				System.out
-						.println("dat image width and height must be specified");
+				System.out.println("dat image width and height must be specified");
 			}
 		}
 
