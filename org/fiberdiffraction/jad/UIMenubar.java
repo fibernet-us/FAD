@@ -26,70 +26,43 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.fiberdiffraction.jad;
-
-import java.awt.EventQueue;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.io.File;
-
 //import static java.lang.System.out;
 
-/**
- * This is the main application window for the program jrad. It contains main
- * menu and 3 panels for plot, command and message.
- */
-public class MainUI {
+package org.fiberdiffraction.jad;
 
-	private JFrame radFrame;
-	private CoreData idata;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
-	final int NMENU = 5;
-	String[] topMenuLabel = { "File", "Data", "Option", "Window", "Help" };
-	String[][] subMenuLabel = { { "Open", "Save", "Close", "Exit" }, // File
+@SuppressWarnings("serial")
+public class UIMenubar extends JMenuBar {
+
+	private final static int  NMENU = 5;	
+	private static String[]   topMenuLabel = { "File", "Data", "Option", "Window", "Help" };
+	private static String[][] subMenuLabel = { 
+			{ "Open", "Save", "Close", "Exit" }, // File
 			{ "Input", "Output", "Background" }, // Data
 			{ "Plot", "Output", }, // Option
 			{ "Pattern", "Log" }, // Window
 			{ "About" } // Help
 	};
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainUI window = new MainUI();
-					window.radFrame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	
+	public UIMenubar(JFrame parent) {
+		createMenu(parent);
 	}
-
-	public MainUI() {
-		initialize();
-	}
-
+	
 	/**
-	 * Initialize the contents of the application UI.
+	 *  Create top menu and sub menus on the JFrame parent
 	 */
-	private void initialize() {
-
-		radFrame = new JFrame();
-		radFrame.setBounds(100, 100, 600, 500);
-		radFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+	private void createMenu(JFrame parent) {
+		
 		JMenuBar menuBar = new JMenuBar();
-		radFrame.setJMenuBar(menuBar);
+		parent.setJMenuBar(menuBar);
 
 		JMenu[] topMenu = new JMenu[NMENU];
 		for (int i = 0; i < NMENU; i++) {
@@ -107,8 +80,8 @@ public class MainUI {
 			}
 		}
 
-		// int i = Arrays.asList(topMenuLabel).indexOf("File");
-
+		// File menu ----------------------------------------------------------
+		
 		// File - Open
 		subMenu[0][0].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -116,8 +89,8 @@ public class MainUI {
 				int returnVal = fc.showOpenDialog(null);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					File file = fc.getSelectedFile();
-					System.out.println(file.getName());
-					ImageInput.getInputImage(file.getName());
+					System.out.println(file.getAbsolutePath());
+					ImageInput.getInputImage(file.getAbsolutePath());
 				} else {
 					System.out.println("Open command cancelled");
 				}
@@ -152,6 +125,8 @@ public class MainUI {
 			}
 		});
 
+		// Data menu ----------------------------------------------------------
+		
 		// Data - Input
 		subMenu[1][0].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
@@ -173,15 +148,17 @@ public class MainUI {
 		subMenu[1][2].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				try {
-					DataPlot bkgd = new DataPlot("Background", idata);
-					bkgd.setLocationRelativeTo(radFrame);
-					bkgd.setVisible(true);
+					//DataPlot bkgd = new DataPlot("Background", idata);
+					//bkgd.setLocationRelativeTo(parent);
+					//bkgd.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
 
+		// Option menu --------------------------------------------------------
+		
 		// Option - Plot
 		subMenu[2][0].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -196,12 +173,14 @@ public class MainUI {
 			}
 		});
 
+		// Window menu --------------------------------------------------------
+		
 		// Window - Pattern
 		subMenu[3][0].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				try {
 					// Background bkgd = new Background("Background", idata);
-					// bkgd.setLocationRelativeTo(radFrame);
+					// bkgd.setLocationRelativeTo(parent);
 					// bkgd.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -216,13 +195,13 @@ public class MainUI {
 			}
 		});
 
+		// Help menu ----------------------------------------------------------
+		
 		// Help - About
 		subMenu[4][0].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 
 			}
 		});
-	} // initialize
-
-} // Class MainUI
-
+	}
+}
