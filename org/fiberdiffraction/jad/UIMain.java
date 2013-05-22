@@ -37,8 +37,8 @@ import javax.swing.BorderFactory;
 
 
 /**
- * JAD main application window contains
- * a menu bar and 3 panels for plotting, message, and control
+ * <pre>
+ * The JAD main application window consists of 4 areas:
  *  _____________
  * |______0______|
  * |         |   |
@@ -47,73 +47,92 @@ import javax.swing.BorderFactory;
  * |_________|   |
  * |____2____|___|
  * 
- * 0: menu bar, 1: plotting, 2: message, 3: control
- * 
+ * 0: menu bar, 1: plotting panel, 2: message panel, 3: control panel
+ * </pre>
  */
-public class UIMain {
+public final class UIMain {
 
-	private static String JAD_VS = "JAD 0.06";
-	private static int UI_CONTROL_WIDTH = 220; // be wide enough to show all ctrl tabs
-	private static int UI_MESSAGE_HEIGHT = 30; // be high enough for one line of text
+    private static final String JAD_VS = "JAD 0.07";
+    private static JFrame mainFrame;
+    private static UIMenubar uiMenubar;
+    private static UIPloting uiPloting;
+    private static UIMessage uiMessage;
+    private static UIControl uiControl;
+    private static int wControl = 220; // width of uiControl: wide enough to show all ctrl tabs
+    private static int hMessage = 30;  // height of uiMessage: high enough for one line of text
+    //private CoreData idata; // to be passed to UI objects
 
-	private JFrame mainFrame;
-	private UIMenubar ui_menubar;
-	private UIPloting ui_ploting;
-	private UIMessage ui_message;
-	private UIControl ui_control;
-	private int w0, h0, x0, y0;   // startup dimension and top-left position
-	
-	//private CoreData idata; // to be implemented and passed to UI objects
+    // no instantiation
+    private UIMain() { }
+       
+    /*
+     * Create application UI and data hooks. Synchronize it to ensure UI creation happen once 
+     * and only once. No use of double lock singleton which does not work on all JVMs
+     *
+     * w, h, x, y: app window startup dimension and top-left position
+     * wCtrl: if > 0 overwrite default wControl 
+     * hMess: if > 0 overwrite default hMessage
+     */
+    public static synchronized void init(int w, int h, int x, int y, int wCtrl, int hMess) {
+        
+        if(mainFrame != null) {
+            return;
+        }
 
-	public UIMain(int w0, int h0, int x0, int y0) {
-		this.w0 = w0;
-		this.h0 = h0;
-		this.x0 = x0;
-		this.y0 = y0;
-		createUI();
-	}
+        if(wCtrl > 0) {
+            wControl = wCtrl;
+        }
 
-	private void createUI() {
+        if(hMess > 0) {
+            hMessage = hMess;
+        }
+        
+        mainFrame = new JFrame();
+        mainFrame.setBounds(x, y, w, h);
+        mainFrame.setTitle(JAD_VS);
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		mainFrame = new JFrame();
-		mainFrame.setBounds(x0, y0, w0, h0);
-		mainFrame.setTitle(JAD_VS);
-		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        uiMenubar = new UIMenubar(mainFrame);
+        uiPloting = new UIPloting(mainFrame, w - wControl, h - hMessage);
+        uiMessage = new UIMessage(mainFrame, w - wControl, hMessage);
+        uiControl = new UIControl(mainFrame, wControl,      h);
 
-		ui_menubar = new UIMenubar(mainFrame);
+        uiPloting.setBorder(BorderFactory.createLineBorder(Color.gray));
+        uiMessage.setBorder(BorderFactory.createLineBorder(Color.gray));
+        uiControl.setBorder(BorderFactory.createLineBorder(Color.gray));
 
-		// TODO: calculate exact work area dimensions
-		ui_ploting = new UIPloting(mainFrame, w0 - UI_CONTROL_WIDTH, h0 - UI_MESSAGE_HEIGHT);
-		ui_message = new UIMessage(mainFrame, w0 - UI_CONTROL_WIDTH, UI_MESSAGE_HEIGHT);
-		ui_control = new UIControl(mainFrame, UI_CONTROL_WIDTH, h0);
+        Box vBox = Box.createVerticalBox();
+        vBox.add(uiPloting);
+        vBox.add(uiMessage);
+        
+        Box hBox = Box.createHorizontalBox();
+        hBox.add(vBox);
+        hBox.add(uiControl);
+        
+        mainFrame.getContentPane().add(hBox, BorderLayout.CENTER);
 
-		ui_ploting.setBorder(BorderFactory.createLineBorder(Color.gray)); 
-		ui_message.setBorder(BorderFactory.createLineBorder(Color.gray));
-		ui_control.setBorder(BorderFactory.createLineBorder(Color.gray));
+        mainFrame.setVisible(true);
+    }
 
-		Box vBox = Box.createVerticalBox();   // 1 + 2
-		vBox.add(ui_ploting);
-		vBox.add(ui_message);
-		Box hBox = Box.createHorizontalBox(); // 12 + 3
-		hBox.add(vBox);
-		hBox.add(ui_control);
-		mainFrame.getContentPane().add(hBox, BorderLayout.CENTER);
 
-		mainFrame.setVisible(true);
-	}
+    // TODO: parse command line argument or configuration file
+    /**
+     * @param args (w, h, x, y, wControl, hMessage) <br>
+     *              w, h, x, y: app window's startup dimension and top-left position, <br>
+     *              wControl, hMessage: width of control panel and height of message panel 
+     *              (default values will be used if given 0)
+     */
+    public static void main(String[] args) {
 
-	// TODO: parse command line args
-	public static void main(String[] args) {
-
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					new UIMain(800, 600, 100, 100);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    UIMain.init(800, 600, 100, 100, 0, 0);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 
 } // Class UIMain

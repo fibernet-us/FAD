@@ -33,7 +33,7 @@ import javax.swing.JPanel;
 import java.awt.Dimension;
 
 @SuppressWarnings("serial")
-public class UIMessage extends JPanel {
+public final class UIMessage extends JPanel {
 
 	private int width, height;
 	private JFrame parentFrame;

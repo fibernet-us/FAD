@@ -38,9 +38,12 @@ import javax.swing.JTextField;
  * and the associated gui component.
  * 
  */
-public class DataControl {
+public final class DataControl {
 	
 	enum DataType { BUTTON, TFIELD, LABELED_TFIELD };
+	
+	private DataControl() { 
+	} 
 	
 	// RUN tab
 	static DatumDef[] DataRun = {
@@ -131,10 +134,11 @@ public class DataControl {
 		 * return value in the string form of integer or double
 		 */
 		String getStringValue() {
-			if(isInt())
-				return String.format("%d", (int)(value + 0.5));
-			else
-				return String.format("%.4f", value);
+			if(isInt()) {
+                return String.format("%d", (int)(value + 0.5));
+            } else {
+                return String.format("%.4f", value);
+            }
 		}
 		
 		/**
@@ -146,10 +150,11 @@ public class DataControl {
 		 */
 		String setValue(String v) {
 			try {
-				if(isInt())
-					value = Integer.parseInt(v);
-				else
-					value = Double.parseDouble(v);	
+				if(isInt()) {
+                    value = Integer.parseInt(v);
+                } else {
+                    value = Double.parseDouble(v);
+                }	
 				System.out.println(name + " set to " + v);
 				setGuiContent();  
 				return null;
@@ -166,8 +171,9 @@ public class DataControl {
 		 * push value to gui when value has been updated from non-gui code
 		 */
 		void setGuiContent() {
-			if(type == DataType.TFIELD || type == DataType.LABELED_TFIELD)
-				((JTextField)gui).setText(getStringValue());
+			if(type == DataType.TFIELD || type == DataType.LABELED_TFIELD) {
+                ((JTextField)gui).setText(getStringValue());
+            }
 		}
 		
 		/** 
