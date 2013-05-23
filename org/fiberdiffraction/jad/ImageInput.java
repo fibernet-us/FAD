@@ -33,41 +33,41 @@ public final class ImageInput {
     private ImageInput() {
     }
     
-	public static void getInputImage(String fname) {
+    public static void getInputImage(String fname) {
 
-		long start = System.nanoTime();
-		double radius = 0;
+        long start = System.nanoTime();
+        double radius = 0;
 
-		int[][] testImage = PatternReader.readPattern(fname);
+        int[][] testImage = PatternReader.readPattern(fname);
 
-		if (testImage != null) {
-			PatternGUI pg = new PatternGUI(testImage, "ImageInput Image",
-					radius);
-			pg.render();
-			System.out.println("Initialization takes: "
-					+ (System.nanoTime() - start) / 1000000000 + " seconds");
-		}
-	}
+        if (testImage != null) {
+            PatternGUI pg = new PatternGUI(testImage, "ImageInput Image",
+                    radius);
+            pg.render();
+            System.out.println("Initialization takes: "
+                    + (System.nanoTime() - start) / 1000000000 + " seconds");
+        }
+    }
 
-	public static void getInputImage(String[] args) {
+    public static void getInputImage(String[] args) {
 
-		long start = System.nanoTime();
-		double radius = 200;
+        long start = System.nanoTime();
+        double radius = 200;
 
-		if (args.length == 0) {
-			System.out
-					.println("Usage: java ImageInput image-file [width] [height]");
-			System.exit(0);
-		}
+        if (args.length == 0) {
+            System.out
+                    .println("Usage: java ImageInput image-file [width] [height]");
+            System.exit(0);
+        }
 
-		int[][] testImage = PatternReader.readPattern(args);
+        int[][] testImage = PatternReader.readPattern(args);
 
-		if (testImage != null) {
-			PatternGUI pg = new PatternGUI(testImage, "ImageInput Image",
-					radius);
-			pg.render();
-			System.out.println("Initialization takes: "
-					+ (System.nanoTime() - start) / 1000000000 + " seconds");
-		}
-	}
+        if (testImage != null) {
+            PatternGUI pg = new PatternGUI(testImage, "ImageInput Image",
+                    radius);
+            pg.render();
+            System.out.println("Initialization takes: "
+                    + (System.nanoTime() - start) / 1000000000 + " seconds");
+        }
+    }
 }

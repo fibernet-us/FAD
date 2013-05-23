@@ -60,12 +60,12 @@ public final class UIMain {
     private static UIControl uiControl;
     private static int wControl = 220; // width of uiControl: wide enough to show all ctrl tabs
     private static int hMessage = 30;  // height of uiMessage: high enough for one line of text
-    //private CoreData idata; // to be passed to UI objects
+    //private DataCore idata; // to be passed to UI objects
 
     // no instantiation
     private UIMain() { }
        
-    /*
+    /**
      * Create application UI and data hooks. Synchronize it to ensure UI creation happen once 
      * and only once. No use of double lock singleton which does not work on all JVMs
      *

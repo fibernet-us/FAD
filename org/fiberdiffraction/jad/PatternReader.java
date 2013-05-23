@@ -39,141 +39,141 @@ import com.sun.media.jai.codec.ImageCodec;
 
 public final class PatternReader {
 
-	private static int[][] image;
-	
-	private PatternReader() {
-	}
+    private static int[][] image;
+    
+    private PatternReader() {
+    }
 
-	/**
-	 * Parse the pattern file extension and call accordingly a read method
-	 */
-	public static int[][] readPattern(String fname) {
+    /**
+     * Parse the pattern file extension and call accordingly a read method
+     */
+    public static int[][] readPattern(String fname) {
 
-		if (endsWithIgnoreCase(fname, "tif")) {
-			return readTif(fname);
-		} else {
-			; // TODO
-		}
+        if (endsWithIgnoreCase(fname, "tif")) {
+            return readTif(fname);
+        } else {
+            ; // TODO
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	//
-	public static int[][] readPattern(String[] args) {
+    //
+    public static int[][] readPattern(String[] args) {
 
-		String fname = args[0];
+        String fname = args[0];
 
-		if (endsWithIgnoreCase(fname, "tif")) {
-			return readTif(fname);
-		} else if (endsWithIgnoreCase(fname, "dat")) {
-			int w = 0, h = 0;
-			try {
-				w = Integer.parseInt(args[1]);
-				h = Integer.parseInt(args[2]);
-				return readDat(fname, w, h);
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("dat image width and height must be specified");
-			}
-		}
+        if (endsWithIgnoreCase(fname, "tif")) {
+            return readTif(fname);
+        } else if (endsWithIgnoreCase(fname, "dat")) {
+            int w = 0, h = 0;
+            try {
+                w = Integer.parseInt(args[1]);
+                h = Integer.parseInt(args[2]);
+                return readDat(fname, w, h);
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("dat image width and height must be specified");
+            }
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	/**
-	 * Read a raw data image and extract image data into a 2D array
-	 */
-	private static int[][] readDat(String fname, int W, int H) {
+    /**
+     * Read a raw data image and extract image data into a 2D array
+     */
+    private static int[][] readDat(String fname, int W, int H) {
 
-		EndianCorrectInputStream input = null;
-		image = null;
+        EndianCorrectInputStream input = null;
+        image = null;
 
-		try {
+        try {
 
-			image = new int[H][W];
-			input = new EndianCorrectInputStream(new FileInputStream(fname),
-					false);
+            image = new int[H][W];
+            input = new EndianCorrectInputStream(new FileInputStream(fname),
+                    false);
 
-			for (int i = 0; i < H; i++) {
-				for (int j = 0; j < W; j++) {
-					image[i][j] = (int) (input.readShortCorrect());
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (input != null) {
-				try {
-					input.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
+            for (int i = 0; i < H; i++) {
+                for (int j = 0; j < W; j++) {
+                    image[i][j] = (int) (input.readShortCorrect());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
-		return image;
-	}
+        return image;
+    }
 
-	/**
-	 * Read a TIFF image and extract image data into a 2D array
-	 */
-	private static int[][] readTif(String fname) {
+    /**
+     * Read a TIFF image and extract image data into a 2D array
+     */
+    private static int[][] readTif(String fname) {
 
-		image = null;
+        image = null;
 
-		try {
-			SeekableStream s = new FileSeekableStream(fname);
-			TIFFDecodeParam param = null;
-			ImageDecoder dec = ImageCodec.createImageDecoder("tiff", s, param);
-			RenderedImage op = dec.decodeAsRenderedImage(0);
-			Raster raster = op.getData();
-			image = new int[op.getHeight()][op.getWidth()];
-			// System.out.println(op.getHeight() + " " + op.getWidth());
+        try {
+            SeekableStream s = new FileSeekableStream(fname);
+            TIFFDecodeParam param = null;
+            ImageDecoder dec = ImageCodec.createImageDecoder("tiff", s, param);
+            RenderedImage op = dec.decodeAsRenderedImage(0);
+            Raster raster = op.getData();
+            image = new int[op.getHeight()][op.getWidth()];
+            // System.out.println(op.getHeight() + " " + op.getWidth());
 
-			int[] pixelColor = new int[4];
-			for (int x = 0; x < op.getWidth(); x++) {
-				for (int y = 0; y < op.getHeight(); y++) {
-					raster.getPixel(x, y, pixelColor);
-					image[y][x] = pixelColor[0];
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+            int[] pixelColor = new int[4];
+            for (int x = 0; x < op.getWidth(); x++) {
+                for (int y = 0; y < op.getHeight(); y++) {
+                    raster.getPixel(x, y, pixelColor);
+                    image[y][x] = pixelColor[0];
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-		return image;
-	}
+        return image;
+    }
 
-	
-	/*
-	 * The following code is copied from:
-	 * http://www.java2s.com/Tutorial/Java/0040__Data-Type/CheckifaStringendswithaspecifiedsuffix.htm
-	 */
-	
-	/**
-	 * Check if a String ends with a specified suffix, case insensitive.
-	 */
-	private static boolean endsWithIgnoreCase(String str, String suffix) {
-		return endsWith(str, suffix, true);
-	}
+    
+    /*
+     * The following code is copied from:
+     * http://www.java2s.com/Tutorial/Java/0040__Data-Type/CheckifaStringendswithaspecifiedsuffix.htm
+     */
+    
+    /**
+     * Check if a String ends with a specified suffix, case insensitive.
+     */
+    private static boolean endsWithIgnoreCase(String str, String suffix) {
+        return endsWith(str, suffix, true);
+    }
 
-	/**
-	 * Check if a String ends with a specified suffix
-	 */
-	private static boolean endsWith(String str, String suffix,
-			boolean ignoreCase) {
+    /**
+     * Check if a String ends with a specified suffix
+     */
+    private static boolean endsWith(String str, String suffix,
+            boolean ignoreCase) {
 
-		if (str == null || suffix == null) {
+        if (str == null || suffix == null) {
             return (str == null && suffix == null);
         }
 
-		if (suffix.length() > str.length()) {
+        if (suffix.length() > str.length()) {
             return false;
         }
 
-		int strOffset = str.length() - suffix.length();
-		return str.regionMatches(ignoreCase, strOffset, suffix, 0,
-				suffix.length());
-	}
+        int strOffset = str.length() - suffix.length();
+        return str.regionMatches(ignoreCase, strOffset, suffix, 0,
+                suffix.length());
+    }
 
 }

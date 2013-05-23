@@ -30,47 +30,47 @@ package org.fiberdiffraction.jad;
 
 public class ColorTable {
 
-	private byte[] red;
-	private byte[] green;
-	private byte[] blue;
-	private int nColors;
+    private byte[] red;
+    private byte[] green;
+    private byte[] blue;
+    private int nColors;
 
-	public ColorTable(int nColors) {
-		this.nColors = nColors;
-		red = new byte[nColors];
-		green = new byte[nColors];
-		blue = new byte[nColors];
-	}
+    public ColorTable(int nColors) {
+        this.nColors = nColors;
+        red = new byte[nColors];
+        green = new byte[nColors];
+        blue = new byte[nColors];
+    }
 
-	public int getnColors() {
-		return nColors;
-	}
+    public int getnColors() {
+        return nColors;
+    }
 
-	public void setnColors(int nColors) {
-		this.nColors = nColors;
-	}
+    public void setnColors(int nColors) {
+        this.nColors = nColors;
+    }
 
-	public byte[] getRed() {
-		return red;
-	}
+    public byte[] getRed() {
+        return red;
+    }
 
-	public void setRed(byte[] red) {
-		this.red = red;
-	}
+    public void setRed(byte[] red) {
+        this.red = red;
+    }
 
-	public byte[] getGreen() {
-		return green;
-	}
+    public byte[] getGreen() {
+        return green;
+    }
 
-	public void setGreen(byte[] green) {
-		this.green = green;
-	}
+    public void setGreen(byte[] green) {
+        this.green = green;
+    }
 
-	public byte[] getBlue() {
-		return blue;
-	}
+    public byte[] getBlue() {
+        return blue;
+    }
 
-	public void setBlue(byte[] blue) {
-		this.blue = blue;
-	}
+    public void setBlue(byte[] blue) {
+        this.blue = blue;
+    }
 }
