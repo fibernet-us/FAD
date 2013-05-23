@@ -40,16 +40,16 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 @SuppressWarnings("serial")
-public class UIMenubar extends JMenuBar {
+public final class UIMenubar extends JMenuBar {
 
-	private final static int  NMENU = 5;	
+	private static final int  NMENU = 5;	
 	private static String[]   topMenuLabel = { "File", "Data", "Option", "Window", "Help" };
 	private static String[][] subMenuLabel = { 
 			{ "Open", "Save", "Close", "Exit" }, // File
 			{ "Input", "Output", "Background" }, // Data
-			{ "Plot", "Output", }, // Option
-			{ "Pattern", "Log" }, // Window
-			{ "About" } // Help
+			{ "Plot", "Output", },               // Option
+			{ "Pattern", "Log" },                // Window
+			{ "About" }                          // Help
 	};
 	
 	public UIMenubar(JFrame parent) {
@@ -138,6 +138,7 @@ public class UIMenubar extends JMenuBar {
 		subMenu[1][1].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				try {
+				    // TODO
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -148,6 +149,7 @@ public class UIMenubar extends JMenuBar {
 		subMenu[1][2].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				try {
+				    // TODO
 					//DataPlot bkgd = new DataPlot("Background", idata);
 					//bkgd.setLocationRelativeTo(parent);
 					//bkgd.setVisible(true);
@@ -179,6 +181,7 @@ public class UIMenubar extends JMenuBar {
 		subMenu[3][0].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				try {
+				    // TODO
 					// Background bkgd = new Background("Background", idata);
 					// bkgd.setLocationRelativeTo(parent);
 					// bkgd.setVisible(true);
@@ -191,7 +194,7 @@ public class UIMenubar extends JMenuBar {
 		// Window - Log
 		subMenu[3][1].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-
+			 // TODO
 			}
 		});
 
@@ -200,7 +203,7 @@ public class UIMenubar extends JMenuBar {
 		// Help - About
 		subMenu[4][0].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-
+			 // TODO
 			}
 		});
 	}
