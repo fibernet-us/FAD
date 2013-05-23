@@ -42,169 +42,169 @@ import javax.swing.JMenuItem;
 @SuppressWarnings("serial")
 public final class UIMenubar extends JMenuBar {
 
-	private static final int  NMENU = 5;	
-	private static String[]   topMenuLabel = { "File", "Data", "Option", "Window", "Help" };
-	private static String[][] subMenuLabel = { 
-			{ "Open", "Save", "Close", "Exit" }, // File
-			{ "Input", "Output", "Background" }, // Data
-			{ "Plot", "Output", },               // Option
-			{ "Pattern", "Log" },                // Window
-			{ "About" }                          // Help
-	};
-	
-	public UIMenubar(JFrame parent) {
-		createMenu(parent);
-	}
-	
-	/**
-	 *  Create top menu and sub menus on the JFrame parent
-	 */
-	private void createMenu(JFrame parent) {
-		
-		JMenuBar menuBar = new JMenuBar();
-		parent.setJMenuBar(menuBar);
+    private static final int  NMENU = 5;    
+    private static String[]   topMenuLabel = { "File", "Data", "Option", "Window", "Help" };
+    private static String[][] subMenuLabel = { 
+            { "Open", "Save", "Close", "Exit" }, // File
+            { "Input", "Output", "Background" }, // Data
+            { "Plot", "Output", },               // Option
+            { "Pattern", "Log" },                // Window
+            { "About" }                          // Help
+    };
+    
+    public UIMenubar(JFrame parent) {
+        createMenu(parent);
+    }
+    
+    /**
+     *  Create top menu and sub menus on the JFrame parent
+     */
+    private void createMenu(JFrame parent) {
+        
+        JMenuBar menuBar = new JMenuBar();
+        parent.setJMenuBar(menuBar);
 
-		JMenu[] topMenu = new JMenu[NMENU];
-		for (int i = 0; i < NMENU; i++) {
-			topMenu[i] = new JMenu(topMenuLabel[i]);
-			menuBar.add(topMenu[i]);
-		}
+        JMenu[] topMenu = new JMenu[NMENU];
+        for (int i = 0; i < NMENU; i++) {
+            topMenu[i] = new JMenu(topMenuLabel[i]);
+            menuBar.add(topMenu[i]);
+        }
 
-		JMenuItem[][] subMenu = new JMenuItem[NMENU][];
-		for (int i = 0; i < NMENU; i++) {
-			int n = subMenuLabel[i].length;
-			subMenu[i] = new JMenuItem[n];
-			for (int j = 0; j < n; j++) {
-				subMenu[i][j] = new JMenuItem(subMenuLabel[i][j]);
-				topMenu[i].add(subMenu[i][j]);
-			}
-		}
+        JMenuItem[][] subMenu = new JMenuItem[NMENU][];
+        for (int i = 0; i < NMENU; i++) {
+            int n = subMenuLabel[i].length;
+            subMenu[i] = new JMenuItem[n];
+            for (int j = 0; j < n; j++) {
+                subMenu[i][j] = new JMenuItem(subMenuLabel[i][j]);
+                topMenu[i].add(subMenu[i][j]);
+            }
+        }
 
-		// File menu ----------------------------------------------------------
-		
-		// File - Open
-		subMenu[0][0].addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JFileChooser fc = new JFileChooser();
-				int returnVal = fc.showOpenDialog(null);
-				if (returnVal == JFileChooser.APPROVE_OPTION) {
-					File file = fc.getSelectedFile();
-					System.out.println(file.getAbsolutePath());
-					ImageInput.getInputImage(file.getAbsolutePath());
-				} else {
-					System.out.println("Open command cancelled");
-				}
-			}
-		});
+        // File menu ----------------------------------------------------------
+        
+        // File - Open
+        subMenu[0][0].addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fc = new JFileChooser();
+                int returnVal = fc.showOpenDialog(null);
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    File file = fc.getSelectedFile();
+                    System.out.println(file.getAbsolutePath());
+                    ImageInput.getInputImage(file.getAbsolutePath());
+                } else {
+                    System.out.println("Open command cancelled");
+                }
+            }
+        });
 
-		// File - Save
-		subMenu[0][1].addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JFileChooser fc = new JFileChooser();
-				int returnVal = fc.showSaveDialog(null);
-				if (returnVal == JFileChooser.APPROVE_OPTION) {
-					File file = fc.getSelectedFile();
-					System.out.println(file.getName());
-				} else {
-					System.out.println("Open command cancelled");
-				}
-			}
-		});
+        // File - Save
+        subMenu[0][1].addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fc = new JFileChooser();
+                int returnVal = fc.showSaveDialog(null);
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    File file = fc.getSelectedFile();
+                    System.out.println(file.getName());
+                } else {
+                    System.out.println("Open command cancelled");
+                }
+            }
+        });
 
-		// File - Close
-		subMenu[0][2].addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+        // File - Close
+        subMenu[0][2].addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
 
-			}
-		});
+            }
+        });
 
-		// File - Exit
-		subMenu[0][3].addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
+        // File - Exit
+        subMenu[0][3].addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
 
-		// Data menu ----------------------------------------------------------
-		
-		// Data - Input
-		subMenu[1][0].addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ae) {
+        // Data menu ----------------------------------------------------------
+        
+        // Data - Input
+        subMenu[1][0].addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
 
-			}
-		});
+            }
+        });
 
-		// Data - Output
-		subMenu[1][1].addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ae) {
-				try {
-				    // TODO
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+        // Data - Output
+        subMenu[1][1].addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                try {
+                    // TODO
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
-		// Data - DataPlot
-		subMenu[1][2].addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ae) {
-				try {
-				    // TODO
-					//DataPlot bkgd = new DataPlot("Background", idata);
-					//bkgd.setLocationRelativeTo(parent);
-					//bkgd.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+        // Data - DataPlot
+        subMenu[1][2].addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                try {
+                    // TODO
+                    //DataPlot bkgd = new DataPlot("Background", idata);
+                    //bkgd.setLocationRelativeTo(parent);
+                    //bkgd.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
-		// Option menu --------------------------------------------------------
-		
-		// Option - Plot
-		subMenu[2][0].addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+        // Option menu --------------------------------------------------------
+        
+        // Option - Plot
+        subMenu[2][0].addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
 
-			}
-		});
+            }
+        });
 
-		// Option - Output
-		subMenu[2][1].addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+        // Option - Output
+        subMenu[2][1].addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
 
-			}
-		});
+            }
+        });
 
-		// Window menu --------------------------------------------------------
-		
-		// Window - Pattern
-		subMenu[3][0].addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ae) {
-				try {
-				    // TODO
-					// Background bkgd = new Background("Background", idata);
-					// bkgd.setLocationRelativeTo(parent);
-					// bkgd.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+        // Window menu --------------------------------------------------------
+        
+        // Window - Pattern
+        subMenu[3][0].addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                try {
+                    // TODO
+                    // Background bkgd = new Background("Background", idata);
+                    // bkgd.setLocationRelativeTo(parent);
+                    // bkgd.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
-		// Window - Log
-		subMenu[3][1].addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ae) {
-			 // TODO
-			}
-		});
+        // Window - Log
+        subMenu[3][1].addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+             // TODO
+            }
+        });
 
-		// Help menu ----------------------------------------------------------
-		
-		// Help - About
-		subMenu[4][0].addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ae) {
-			 // TODO
-			}
-		});
-	}
+        // Help menu ----------------------------------------------------------
+        
+        // Help - About
+        subMenu[4][0].addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+             // TODO
+            }
+        });
+    }
 }

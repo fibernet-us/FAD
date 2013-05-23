@@ -35,19 +35,19 @@ import java.awt.Dimension;
 @SuppressWarnings("serial")
 public final class UIPloting extends JPanel {
 
-	private int width, height;
-	private JFrame parentFrame;
-	
-	public UIPloting(JFrame parent, int width, int height) {
-		this.parentFrame = parent;
-		this.width = width;
-		this.height = height;
-		setPreferredSize(new Dimension(width, height)); 
-		setMinimumSize(new Dimension(width, height)); 
-		initialize();
-	}
-	
-	private void initialize() {
-		
-	}
+    private int width, height;
+    private JFrame parentFrame;
+    
+    public UIPloting(JFrame parent, int width, int height) {
+        this.parentFrame = parent;
+        this.width = width;
+        this.height = height;
+        setPreferredSize(new Dimension(width, height)); 
+        setMinimumSize(new Dimension(width, height)); 
+        initialize();
+    }
+    
+    private void initialize() {
+        
+    }
 }
