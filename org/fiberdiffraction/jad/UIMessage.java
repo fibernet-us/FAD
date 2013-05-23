@@ -35,19 +35,19 @@ import java.awt.Dimension;
 @SuppressWarnings("serial")
 public final class UIMessage extends JPanel {
 
-	private int width, height;
-	private JFrame parentFrame;
-	
-	public UIMessage(JFrame parent, int width, int height) {
-		this.parentFrame = parent;
-		this.width = width;
-		this.height = height;
-		setPreferredSize(new Dimension(width, height)); 
-		setMinimumSize(new Dimension(width, height)); 
-		initialize();
-	}
-	
-	private void initialize() {
-		
-	}
+    private int width, height;
+    private JFrame parentFrame;
+    
+    public UIMessage(JFrame parent, int width, int height) {
+        this.parentFrame = parent;
+        this.width = width;
+        this.height = height;
+        setPreferredSize(new Dimension(width, height)); 
+        setMinimumSize(new Dimension(width, height)); 
+        initialize();
+    }
+    
+    private void initialize() {
+        
+    }
 }
