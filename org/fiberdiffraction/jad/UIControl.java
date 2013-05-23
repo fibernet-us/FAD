@@ -54,141 +54,140 @@ import java.util.Map;
 @SuppressWarnings("serial")
 public class UIControl extends JPanel {
 
-	private static int WIDGET_WIDTH = 80, WIDGET_HEIGHT = 30;
-	private int width, height;
-	private JFrame parentFrame;
-	private JTabbedPane controlTabs;
-	private JPanel pageRun, pageInp, pagePar, pageBg;
-	
-	private Map<String, DataControl.DatumDef> parTable;   
-	
-	/**
-	 * Constructor
-	 */
-	public UIControl(JFrame parent, int width, int height) {
-		this.parentFrame = parent;
-		this.width = width;
-		this.height = height;
-		setPreferredSize(new Dimension(width, height)); 
-		setMinimumSize(new Dimension(width, height)); 
-		parTable = new HashMap<String, DataControl.DatumDef>();
-		initialize();
-	}
+    private static int WIDGET_WIDTH = 80, WIDGET_HEIGHT = 30;
+    private int width, height;
+    private JFrame parentFrame;
+    private JTabbedPane controlTabs;
+    private JPanel pageRun, pageInp, pagePar, pageBg;
 
-	/**
-	 * Initialize the contents of the control panels.
-	 */
-	private void initialize() {
+    private Map<String, DataControl.DatumDef> parTable;   
 
-		setLayout(new BorderLayout());
+    /**
+     * set up dimension attribute and create control UI
+     */
+    public UIControl(JFrame parent, int width, int height) {
+        this.parentFrame = parent;
+        this.width = width;
+        this.height = height;
+        setPreferredSize(new Dimension(width, height)); 
+        setMinimumSize(new Dimension(width, height)); 
+        parTable = new HashMap<String, DataControl.DatumDef>();
+        initialize();
+    }
 
-		// Create tab pages
-		createTabPage(pageRun = new JPanel(), DataControl.DataRun);
-		createTabPage(pageInp = new JPanel(), DataControl.DataInp);
-		createTabPage(pagePar = new JPanel(), DataControl.DataPar);
-		createTabPage(pageBg  = new JPanel(), DataControl.DataBg);
+    //Initialize the contents of the control panels.
+    private void initialize() {
 
-		// Create tabs
-		controlTabs = new JTabbedPane(JTabbedPane.TOP, JTabbedPane.SCROLL_TAB_LAYOUT);
-		controlTabs.addTab("RUN", pageRun);
-		controlTabs.addTab("INP", pageInp);
-		controlTabs.addTab("PAR", pagePar);
-		controlTabs.addTab("BG",  pageBg);
+        setLayout(new BorderLayout());
 
-		add(controlTabs, BorderLayout.CENTER);
-	}
+        // Create tab pages
+        createTabPage(pageRun = new JPanel(), DataControl.DataRun);
+        createTabPage(pageInp = new JPanel(), DataControl.DataInp);
+        createTabPage(pagePar = new JPanel(), DataControl.DataPar);
+        createTabPage(pageBg  = new JPanel(), DataControl.DataBg);
 
-	private void createTabPage(JPanel parent, DataControl.DatumDef[] widgets) {
+        // Create tabs
+        controlTabs = new JTabbedPane(JTabbedPane.TOP, JTabbedPane.SCROLL_TAB_LAYOUT);
+        controlTabs.addTab("RUN", pageRun);
+        controlTabs.addTab("INP", pageInp);
+        controlTabs.addTab("PAR", pagePar);
+        controlTabs.addTab("BG",  pageBg);
 
-		//
-		// first create the widgets and put them into a list
-		//
-		
-		ArrayList<JComponent> jclist = new ArrayList<JComponent>();
-		JComponent jc;
-		
-		for (int i = 0; i < widgets.length; i++) {
-			
-			switch (widgets[i].getType()) {
-				case BUTTON:
-					jc = new JButton(widgets[i].getName());
-					jc.setMinimumSize(new Dimension(WIDGET_WIDTH, WIDGET_HEIGHT));
-					jc.setMaximumSize(new Dimension(WIDGET_WIDTH, WIDGET_HEIGHT));
-					jclist.add(jc);
-					break;
-					//
-				case LABELED_TFIELD:
-					jc = new JLabel(widgets[i].getName());
-					jc.setMinimumSize(new Dimension(WIDGET_WIDTH, WIDGET_HEIGHT));
-					jc.setMaximumSize(new Dimension(WIDGET_WIDTH, WIDGET_HEIGHT));
-					jclist.add(jc);
-					// fall through. label always followed by its text field
-					//
-				case TFIELD:
-					jc = new JTextField();
-					jc.setName(widgets[i].getName());				
-					jc.setMinimumSize(new Dimension(WIDGET_WIDTH, WIDGET_HEIGHT));
-					jc.setMaximumSize(new Dimension(WIDGET_WIDTH, WIDGET_HEIGHT));
-					jclist.add(jc);	
-					
-					((JTextField) jc).setColumns(10);
-					((JTextField) jc).setText(widgets[i].getStringValue());
-					((JTextField) jc).addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							JTextField j = (JTextField)e.getSource();
-							DataControl.DatumDef datum = parTable.get(j.getName());
-							if(datum != null) {
-								String err = datum.setValue(j.getText());
-								if(err != null) 
-									JOptionPane.showMessageDialog(null, err, "Error", JOptionPane.ERROR_MESSAGE);
-							}
-						}
-					});
-									
-					widgets[i].setGui(jc);
-					parTable.put(widgets[i].getName(), widgets[i]);	
-					break;
-					//
-				default:
-					break;
-			}
-		}
-		
-		//
-		// now group the widgets into 2 columns
-		//
-		
-		GroupLayout layout = new GroupLayout(parent);
-		parent.setLayout(layout);
+        add(controlTabs, BorderLayout.CENTER);
+    }
 
-		// set gaps between components
-		layout.setAutoCreateGaps(true);
-		// set gaps between container and components touching the edge of it
-		layout.setAutoCreateContainerGaps(true);
+    private void createTabPage(JPanel parent, DataControl.DatumDef[] widgets) {
 
-		// Create one sequential group for horizontal axis, and one for vertical
-		GroupLayout.SequentialGroup hGroup = layout.createSequentialGroup();
-		GroupLayout.SequentialGroup vGroup = layout.createSequentialGroup();
+        //
+        // first create the widgets and put them into a list
+        //
 
-		// hGroup contains two parallel groups, one for labels and one for text fields
-		GroupLayout.ParallelGroup h1 = layout.createParallelGroup();
-		GroupLayout.ParallelGroup h2 = layout.createParallelGroup();
-		
-		// group widgets into 2 columns
-		for (int i = 1; i < jclist.size(); i += 2) {
-		
-			h1 = h1.addComponent(jclist.get(i-1));
-			h2 = h2.addComponent(jclist.get(i));
-			
-			// add a parallel group that aligns a label and a text field along the baseline
-			vGroup.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-			      .addComponent(jclist.get(i-1)).addComponent(jclist.get(i)));
-		}
-		
-		hGroup.addGroup(h1);
-		hGroup.addGroup(h2);
-		layout.setHorizontalGroup(hGroup);
-		layout.setVerticalGroup(vGroup);
-	}
+        ArrayList<JComponent> jclist = new ArrayList<JComponent>();
+        JComponent jc;
+
+        for (int i = 0; i < widgets.length; i++) {
+
+            switch (widgets[i].getType()) {
+                case BUTTON:
+                    jc = new JButton(widgets[i].getName());
+                    jc.setMinimumSize(new Dimension(WIDGET_WIDTH, WIDGET_HEIGHT));
+                    jc.setMaximumSize(new Dimension(WIDGET_WIDTH, WIDGET_HEIGHT));
+                    jclist.add(jc);
+                    break;
+                    //
+                case LABELED_TFIELD:
+                    jc = new JLabel(widgets[i].getName());
+                    jc.setMinimumSize(new Dimension(WIDGET_WIDTH, WIDGET_HEIGHT));
+                    jc.setMaximumSize(new Dimension(WIDGET_WIDTH, WIDGET_HEIGHT));
+                    jclist.add(jc);
+                    // fall through. label always followed by its text field
+                    //
+                case TFIELD:
+                    jc = new JTextField();
+                    jc.setName(widgets[i].getName());                
+                    jc.setMinimumSize(new Dimension(WIDGET_WIDTH, WIDGET_HEIGHT));
+                    jc.setMaximumSize(new Dimension(WIDGET_WIDTH, WIDGET_HEIGHT));
+                    jclist.add(jc);    
+
+                    ((JTextField) jc).setColumns(10);
+                    ((JTextField) jc).setText(widgets[i].getStringValue());
+                    ((JTextField) jc).addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                            JTextField j = (JTextField)e.getSource();
+                            DataControl.DatumDef datum = parTable.get(j.getName());
+                            if(datum != null) {
+                                String err = datum.setValue(j.getText());
+                                if(err != null) {
+                                    JOptionPane.showMessageDialog(null, err, "Error", JOptionPane.ERROR_MESSAGE);
+                                }
+                            }
+                        }
+                    });
+
+                    widgets[i].setGui(jc);
+                    parTable.put(widgets[i].getName(), widgets[i]);    
+                    break;
+                    //
+                default:
+                    break;
+            }
+        }
+
+        //
+        // then group the widgets into 2 columns
+        //
+
+        GroupLayout layout = new GroupLayout(parent);
+        parent.setLayout(layout);
+
+        // set gaps between components
+        layout.setAutoCreateGaps(true);
+        // set gaps between container and components touching the edge of it
+        layout.setAutoCreateContainerGaps(true);
+
+        // Create one sequential group for horizontal axis, and one for vertical
+        GroupLayout.SequentialGroup hGroup = layout.createSequentialGroup();
+        GroupLayout.SequentialGroup vGroup = layout.createSequentialGroup();
+
+        // hGroup contains two parallel groups, one for labels and one for text fields
+        GroupLayout.ParallelGroup h1 = layout.createParallelGroup();
+        GroupLayout.ParallelGroup h2 = layout.createParallelGroup();
+
+        // group widgets into 2 columns
+        for (int i = 1; i < jclist.size(); i += 2) {
+
+            h1 = h1.addComponent(jclist.get(i-1));
+            h2 = h2.addComponent(jclist.get(i));
+
+            // add a parallel group that aligns a label and a text field along the baseline
+            vGroup.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+                  .addComponent(jclist.get(i-1)).addComponent(jclist.get(i)));
+        }
+
+        hGroup.addGroup(h1);
+        hGroup.addGroup(h2);
+        layout.setHorizontalGroup(hGroup);
+        layout.setVerticalGroup(vGroup);
+    }
 
 }
