@@ -33,7 +33,7 @@ import javax.swing.JPanel;
 import java.awt.Dimension;
 
 @SuppressWarnings("serial")
-public class UIPloting extends JPanel {
+public final class UIPloting extends JPanel {
 
 	private int width, height;
 	private JFrame parentFrame;

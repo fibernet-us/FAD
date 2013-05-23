@@ -28,17 +28,21 @@
 
 package org.fiberdiffraction.jad;
 
-import java.io.*;
-import java.awt.image.*;
+import java.awt.image.Raster;
+import java.awt.image.RenderedImage;
+import java.io.FileInputStream;
 import com.sun.media.jai.codec.SeekableStream;
 import com.sun.media.jai.codec.FileSeekableStream;
 import com.sun.media.jai.codec.TIFFDecodeParam;
 import com.sun.media.jai.codec.ImageDecoder;
 import com.sun.media.jai.codec.ImageCodec;
 
-public class PatternReader {
+public final class PatternReader {
 
 	private static int[][] image;
+	
+	private PatternReader() {
+	}
 
 	/**
 	 * Parse the pattern file extension and call accordingly a read method
@@ -48,7 +52,7 @@ public class PatternReader {
 		if (endsWithIgnoreCase(fname, "tif")) {
 			return readTif(fname);
 		} else {
-			// TODO
+			; // TODO
 		}
 
 		return null;
@@ -159,11 +163,13 @@ public class PatternReader {
 	private static boolean endsWith(String str, String suffix,
 			boolean ignoreCase) {
 
-		if (str == null || suffix == null)
-			return (str == null && suffix == null);
+		if (str == null || suffix == null) {
+            return (str == null && suffix == null);
+        }
 
-		if (suffix.length() > str.length())
-			return false;
+		if (suffix.length() > str.length()) {
+            return false;
+        }
 
 		int strOffset = str.length() - suffix.length();
 		return str.regionMatches(ignoreCase, strOffset, suffix, 0,

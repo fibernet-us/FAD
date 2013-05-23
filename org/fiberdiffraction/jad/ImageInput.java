@@ -28,12 +28,15 @@
 
 package org.fiberdiffraction.jad;
 
-public class ImageInput {
+public final class ImageInput {
 
+    private ImageInput() {
+    }
+    
 	public static void getInputImage(String fname) {
 
 		long start = System.nanoTime();
-		double radius = 200;
+		double radius = 0;
 
 		int[][] testImage = PatternReader.readPattern(fname);
 
