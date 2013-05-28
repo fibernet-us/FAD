@@ -60,7 +60,7 @@ public class UIControl extends JPanel {
     private JTabbedPane controlTabs;
     private JPanel pageRun, pageInp, pagePar, pageBg;
 
-    private Map<String, DataControl.DatumDef> parTable;   
+    private Map<String, DatumDef> parTable;   
 
     /**
      * set up dimension attribute and create control UI
@@ -71,7 +71,7 @@ public class UIControl extends JPanel {
         this.height = height;
         setPreferredSize(new Dimension(width, height)); 
         setMinimumSize(new Dimension(width, height)); 
-        parTable = new HashMap<String, DataControl.DatumDef>();
+        parTable = new HashMap<String, DatumDef>();
         initialize();
     }
 
@@ -81,10 +81,10 @@ public class UIControl extends JPanel {
         setLayout(new BorderLayout());
 
         // Create tab pages
-        createTabPage(pageRun = new JPanel(), DataControl.DataRun);
-        createTabPage(pageInp = new JPanel(), DataControl.DataInp);
-        createTabPage(pagePar = new JPanel(), DataControl.DataPar);
-        createTabPage(pageBg  = new JPanel(), DataControl.DataBg);
+        createTabPage(pageRun = new JPanel(), DataControl.dataRun);
+        createTabPage(pageInp = new JPanel(), DataControl.dataInp);
+        createTabPage(pagePar = new JPanel(), DataControl.dataPar);
+        createTabPage(pageBg  = new JPanel(), DataControl.dataBg);
 
         // Create tabs
         controlTabs = new JTabbedPane(JTabbedPane.TOP, JTabbedPane.SCROLL_TAB_LAYOUT);
@@ -96,10 +96,12 @@ public class UIControl extends JPanel {
         add(controlTabs, BorderLayout.CENTER);
     }
 
-    private void createTabPage(JPanel parent, DataControl.DatumDef[] widgets) {
+    //public DataControl.DatumDef 
+    
+    private void createTabPage(JPanel parent, DatumDef[] widgets) {
 
         //
-        // first create the widgets and put them into a list
+        // create the widgets and put them into a list (for later grouping)
         //
 
         ArrayList<JComponent> jclist = new ArrayList<JComponent>();
@@ -134,7 +136,7 @@ public class UIControl extends JPanel {
                     ((JTextField) jc).addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
                             JTextField j = (JTextField)e.getSource();
-                            DataControl.DatumDef datum = parTable.get(j.getName());
+                            DatumDef datum = parTable.get(j.getName());
                             if(datum != null) {
                                 String err = datum.setValue(j.getText());
                                 if(err != null) {
@@ -154,7 +156,7 @@ public class UIControl extends JPanel {
         }
 
         //
-        // then group the widgets into 2 columns
+        // group the widgets into 2 columns
         //
 
         GroupLayout layout = new GroupLayout(parent);

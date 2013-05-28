@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project name="JAD" default="build">
+    
+    <!-- Expose the Jenkins Environment variables using env -->
+    <property environment="env"/>
+    
+    <property name="src.dir" location="." />
+    <property name="bin.dir" location="${src.dir}/bin" />
+    <property name="jar.dir" location="${src.dir}/jar" />
+
+    <!-- the build target and dependecies -->
+    <target name="build" depends="jar" />
+
+    <target name="clean" description="cleanup old build artifacts">
+        <delete dir="${bin.dir}" />
+    </target>
+    
+    <target name="setup" depends="clean" description="setup new build">
+        <mkdir dir="${bin.dir}" />
+    </target>
+    
+    <target name="compile" depends="setup">
+        <javac srcdir="${src.dir}" destdir="${bin.dir}" />
+    </target>
+
+    <target name="jar" description="make jar" depends="compile">
+        <jar destfile="${jar.dir}/${env.JOB_NAME}-${env.BUILD_NUMBER}.jar" filesetmanifest="mergewithoutmain">
+            <manifest>
+                <attribute name="Main-Class" value="org.fiberdiffraction.jad.UIMain"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+            <fileset dir="${bin.dir}" excludes="**/*.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="/usr/lib/jvm/java-1.6.0-openjdk-1.6.0.0/jre/lib/ext/jai_codec.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="/usr/lib/jvm/java-1.6.0-openjdk-1.6.0.0/jre/lib/ext/jai_core.jar"/>
+        </jar>
+    </target>
+</project>

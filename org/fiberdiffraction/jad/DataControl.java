@@ -31,6 +31,9 @@ package org.fiberdiffraction.jad;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 
+
+enum DataType { BUTTON, TFIELD, LABELED_TFIELD };
+
 /**
  * 
  * DataControl class contains all data items associated with control panels.
@@ -40,13 +43,11 @@ import javax.swing.JTextField;
  */
 public final class DataControl {
     
-    enum DataType { BUTTON, TFIELD, LABELED_TFIELD };
-    
     private DataControl() { 
     } 
     
     // RUN tab
-    static DatumDef[] DataRun = {
+    static DatumDef[] dataRun = {
         //
         // data order here is significant - ensuring a text field in line with its button
         //
@@ -59,7 +60,7 @@ public final class DataControl {
     };
 
     // INP tab
-    static DatumDef[] DataInp = { 
+    static DatumDef[] dataInp = { 
         new DatumDef(DataType.LABELED_TFIELD, "XWAV",   1.0000), 
         new DatumDef(DataType.LABELED_TFIELD, "SFD",  250.1000),
         new DatumDef(DataType.LABELED_TFIELD, "C",      6.0000), 
@@ -75,7 +76,7 @@ public final class DataControl {
     };
 
     // PAR tab
-    static DatumDef[] DataPar = { 
+    static DatumDef[] dataPar = { 
         new DatumDef(DataType.LABELED_TFIELD, "NREF",   25    ),
         new DatumDef(DataType.LABELED_TFIELD, "NPR",    0     ), 
         new DatumDef(DataType.LABELED_TFIELD, "MAXLLS", 0.5000),
@@ -91,7 +92,7 @@ public final class DataControl {
     };
 
     // BG tab
-    static DatumDef[] DataBg = { 
+    static DatumDef[] dataBg = { 
         new DatumDef(DataType.LABELED_TFIELD, "NG",     1     ),
         new DatumDef(DataType.LABELED_TFIELD, "SIG1",  10.0000), 
         new DatumDef(DataType.LABELED_TFIELD, "SIG2",   0.0000),
@@ -99,90 +100,99 @@ public final class DataControl {
         new DatumDef(DataType.LABELED_TFIELD, "GRAT",   0.0000)
     };
     
+} // class DataControl
+
+
+/**
+ * 
+ *  DatumDef is an auxiliary class holding a datum's name, type, 
+ *  value and the associated gui component
+ *
+ */
+class DatumDef {
+    
+    private DataType type; 
+    private String name;
+    private double value;
+    private JComponent gui;
+    
+    DatumDef(DataType type, String name, double value) {
+        this.type = type;
+        this.name = name;
+        this.value = value;
+        this.gui = null;
+    }
+    
+    DataType getType()         { return type;  }
+    String getName()           { return name;  }        
+    double getValue()          { return value; }
+    JComponent getGui()        { return gui;   }    
+    
+    void setType(DataType t)   { type = t;     }
+    void setName(String s)     { name = s;     }
+    void setGui(JComponent j)  { gui = j;      }        
+    
+    /** 
+     * return value in the string form of integer or double
+     */
+    String getStringValue() {
+        if(isInt()) {
+            return String.format("%d", (int)(value + 0.5));
+        } else {
+            return String.format("%.4f", value);
+        }
+    }
+
+    /**
+     * called upon reading input file and parameters
+     */
+    void setValue(double d) {  
+            value = d;
+            System.out.println(name + " set to " + d);
+            setGuiContent();
+    }
     
     /**
+     * called upon actionPerformed from gui, i.e., user input
+     * return null if input valid, else return an error string
      * 
-     *  DatumDef is an auxiliary class holding a datum's name, type, 
-     *  value and the associated gui component
-     *
+     * @Attention("We return null for success!")
+     * @return an error string
      */
-    static class DatumDef {
-        
-        private DataType type; 
-        private String name;
-        private double value;
-        private JComponent gui;
-        
-        DatumDef(DataType type, String name, double value) {
-            this.type = type;
-            this.name = name;
-            this.value = value;
-            this.gui = null;
-        }
-        
-        DataType getType()         { return type;  }
-        String getName()           { return name;  }        
-        double getValue()          { return value; }
-        JComponent getGui()        { return gui;   }    
-        
-        void setType(DataType t)   { type = t;     }
-        void setName(String s)     { name = s;     }
-        void setValue(double d)    { value = d;    }
-        void setGui(JComponent j)  { gui = j;      }        
-        
-        /** 
-         * return value in the string form of integer or double
-         */
-        String getStringValue() {
+    String setValue(String v) {
+        try {
             if(isInt()) {
-                return String.format("%d", (int)(value + 0.5));
+                value = Integer.parseInt(v);
             } else {
-                return String.format("%.4f", value);
-            }
+                value = Double.parseDouble(v);
+            }    
+            System.out.println(name + " set to " + v);
+            setGuiContent();  
+            return null;
         }
-        
-        /**
-         * called upon actionPerformed from gui, i.e., user input
-         * return null if input valid, else return an error string
-         * 
-         * @Attention("We return null for success!")
-         * @return an error string
-         */
-        String setValue(String v) {
-            try {
-                if(isInt()) {
-                    value = Integer.parseInt(v);
-                } else {
-                    value = Double.parseDouble(v);
-                }    
-                System.out.println(name + " set to " + v);
-                setGuiContent();  
-                return null;
-            }
-            catch(NumberFormatException e) {
-                String err = "Invalud number format. " + (isInt()? "integer" : "real") + " expected. Reset.";
-                System.out.println(err);
-                setGuiContent();
-                return err;
-            }                
-        }
-        
-        /** 
-         * push value to gui when value has been updated from non-gui code
-         */
-        void setGuiContent() {
-            if(type == DataType.TFIELD || type == DataType.LABELED_TFIELD) {
-                ((JTextField)gui).setText(getStringValue());
-            }
-        }
-        
-        /** 
-         * if a datum's name starts with I or N, it is an int
-         */
-        private boolean isInt() {
-            return (name.charAt(0) == 'I' || name.charAt(0) == 'N'); 
-        }
-        
-    } // class DatumDef
+        catch(NumberFormatException e) {
+            String err = "Invalud number format. " + (isInt()? "integer" : "real") + " expected. Reset.";
+            System.out.println(err);
+            setGuiContent();
+            return err;
+        }                
+    }
     
-} // class DataControl
+    /** 
+     * push value to gui when value has been updated from non-gui code
+     * do nothing if the gui is not a text field
+     */
+    void setGuiContent() {
+        if(type == DataType.TFIELD || type == DataType.LABELED_TFIELD) {
+            ((JTextField)gui).setText(getStringValue());
+        }
+    }
+    
+    /** 
+     * if a datum's name starts with I or N, it is an int
+     */
+    private boolean isInt() {
+        return (name.charAt(0) == 'I' || name.charAt(0) == 'N'); 
+    }
+    
+} // class DatumDef
