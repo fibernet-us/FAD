@@ -30,7 +30,9 @@ package org.fiberdiffraction.jad;
 
 import java.awt.image.Raster;
 import java.awt.image.RenderedImage;
+import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import com.sun.media.jai.codec.SeekableStream;
 import com.sun.media.jai.codec.FileSeekableStream;
 import com.sun.media.jai.codec.TIFFDecodeParam;
@@ -45,27 +47,32 @@ public final class PatternReader {
     }
 
     /**
-     * Parse the pattern file extension and call accordingly a read method
+     * Parse the pattern file type by extension and call accordingly a read method
      */
     public static int[][] readPattern(String fname) {
 
         if (endsWithIgnoreCase(fname, "tif")) {
             return readTif(fname);
-        } else {
+        } 
+        else if (endsWithIgnoreCase(fname, "plr")) {
+            return readPlr(fname);
+        } 
+        else {
             ; // TODO
         }
-
+        
         return null;
     }
 
-    //
+    /**
+     * Parse the pattern file extension and call accordingly a read method
+     * Read pattern files that come with attributes not stored in itself
+     */
     public static int[][] readPattern(String[] args) {
 
         String fname = args[0];
 
-        if (endsWithIgnoreCase(fname, "tif")) {
-            return readTif(fname);
-        } else if (endsWithIgnoreCase(fname, "dat")) {
+        if (endsWithIgnoreCase(fname, "dat")) {
             int w = 0, h = 0;
             try {
                 w = Integer.parseInt(args[1]);
@@ -80,7 +87,7 @@ public final class PatternReader {
         return null;
     }
 
-    /**
+    /*
      * Read a raw data image and extract image data into a 2D array
      */
     private static int[][] readDat(String fname, int W, int H) {
@@ -114,7 +121,7 @@ public final class PatternReader {
         return image;
     }
 
-    /**
+    /*
      * Read a TIFF image and extract image data into a 2D array
      */
     private static int[][] readTif(String fname) {
@@ -144,20 +151,40 @@ public final class PatternReader {
         return image;
     }
 
+    /*
+     * Read a PLR image and extract image data into a 2D array
+     */
+    public static int[][] readPlr(String fname) {
+        
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(fname));
+            DataPlr dp = new DataPlr();
+            dp.parseData(br);
+            br.close();            
+            return dp.getImageData();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+        
+        return null;
+    }
+    
+    
     
     /*
      * The following code is copied from:
      * http://www.java2s.com/Tutorial/Java/0040__Data-Type/CheckifaStringendswithaspecifiedsuffix.htm
      */
     
-    /**
+    /*
      * Check if a String ends with a specified suffix, case insensitive.
      */
     private static boolean endsWithIgnoreCase(String str, String suffix) {
         return endsWith(str, suffix, true);
     }
 
-    /**
+    /*
      * Check if a String ends with a specified suffix
      */
     private static boolean endsWith(String str, String suffix,

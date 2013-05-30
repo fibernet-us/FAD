@@ -67,7 +67,7 @@ public final class UIMain {
        
     /**
      * Create application UI and data hooks. Synchronize it to ensure UI creation happen once 
-     * and only once. No use of double lock singleton which does not work on all JVMs
+     * and only once. No use of double checking lock which does not work on all JVMs
      *
      * w, h, x, y: app window startup dimension and top-left position
      * wCtrl: if > 0 overwrite default wControl 
