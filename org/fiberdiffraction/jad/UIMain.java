@@ -28,17 +28,19 @@
 
 package org.fiberdiffraction.jad;
 
-import java.awt.Color;
+
 import java.awt.EventQueue;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.Box;
 import javax.swing.BorderFactory;
-
+import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 /**
  * <pre>
- * The JAD main application window consists of 4 areas:
+ * The JAD main application window consists of 4 areas (besides title bar):
  *  _____________
  * |______0______|
  * |         |   |
@@ -52,28 +54,30 @@ import javax.swing.BorderFactory;
  */
 public final class UIMain {
 
-    private static final String JAD_VS = "JAD 0.07";
+    private static final String JAD_VS = "JAD 0.2";
     private static JFrame mainFrame;
     private static UIMenubar uiMenubar;
     private static UIPloting uiPloting;
     private static UIMessage uiMessage;
     private static UIControl uiControl;
-    private static int wControl = 220; // width of uiControl: wide enough to show all ctrl tabs
+    private static int wControl = 200; // width of uiControl: wide enough to show all ctrl tabs
     private static int hMessage = 30;  // height of uiMessage: high enough for one line of text
-    //private DataCore idata; // to be passed to UI objects
 
     // no instantiation
     private UIMain() { }
        
     /**
-     * Create application UI and data hooks. Synchronize it to ensure UI creation happen once 
-     * and only once. No use of double checking lock which does not work on all JVMs
+     * Create main UI and data hooks. Synchronized to ensure main UI creation happen 
+     * only once. No use of double-checked locking which does not work on all JVMs.
      *
-     * w, h, x, y: app window startup dimension and top-left position
-     * wCtrl: if > 0 overwrite default wControl 
-     * hMess: if > 0 overwrite default hMessage
+     * @param w  width of the main window at startup         
+     * @param h  height of the main window at startup   
+     * @param x  x-coordinate of the main window's startup top-left position
+     * @param y  y-coordinate of the main window's startup top-left position    
+     * @param wCtrl  if > 0 overwrite default wControl       
+     * @param hMess  if > 0 overwrite default hMessage
      */
-    public static synchronized void init(int w, int h, int x, int y, int wCtrl, int hMess) {
+    public static synchronized void initialize(int w, int h, int x, int y, int wCtrl, int hMess) {
         
         if(mainFrame != null) {
             return;
@@ -87,47 +91,45 @@ public final class UIMain {
             hMessage = hMess;
         }
         
-        mainFrame = new JFrame();
+        mainFrame = new JFrame(JAD_VS);
         mainFrame.setBounds(x, y, w, h);
-        mainFrame.setTitle(JAD_VS);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        uiMenubar = new UIMenubar(mainFrame);
+        uiMenubar = new UIMenubar(mainFrame, new MainMenuData());
         uiPloting = new UIPloting(mainFrame, w - wControl, h - hMessage);
         uiMessage = new UIMessage(mainFrame, w - wControl, hMessage);
-        uiControl = new UIControl(mainFrame, wControl,      h);
+        uiControl = new UIControl(mainFrame, wControl,     h);
 
-        uiPloting.setBorder(BorderFactory.createLineBorder(Color.gray));
-        uiMessage.setBorder(BorderFactory.createLineBorder(Color.gray));
-        uiControl.setBorder(BorderFactory.createLineBorder(Color.gray));
+        Border lineBorder = BorderFactory.createLineBorder(Color.gray);
+        uiPloting.setBorder(lineBorder);
+        uiMessage.setBorder(lineBorder);
+        uiControl.setBorder(lineBorder);
 
-        Box vBox = Box.createVerticalBox();
-        vBox.add(uiPloting);
-        vBox.add(uiMessage);
+        // use BorderLayout to keep height of uiMessage and width of uiControl fixed
+        // and let uiPloting take on resizing (BorderLayout.CENTER is greedy)
+        JPanel plotmes = new JPanel(new BorderLayout());
+        plotmes.add(uiPloting, BorderLayout.CENTER);
+        plotmes.add(uiMessage, BorderLayout.PAGE_END); 
+        mainFrame.add(plotmes, BorderLayout.CENTER);
+        mainFrame.add(uiControl, BorderLayout.LINE_END); 
         
-        Box hBox = Box.createHorizontalBox();
-        hBox.add(vBox);
-        hBox.add(uiControl);
-        
-        mainFrame.getContentPane().add(hBox, BorderLayout.CENTER);
-
         mainFrame.setVisible(true);
     }
 
-
-    // TODO: parse command line argument or configuration file
     /**
      * @param args (w, h, x, y, wControl, hMessage) <br>
-     *              w, h, x, y: app window's startup dimension and top-left position, <br>
-     *              wControl, hMessage: width of control panel and height of message panel 
-     *              (default values will be used if given 0)
+     *              w, h, x, y: app window's startup dimension and top-left position. <br>
+     *              wControl, hMessage: width of control panel and height of message panel.
      */
+    /*
+     *  TODO: parse/check command line argument & configuration file (~/.jad) 
+     */ 
     public static void main(String[] args) {
 
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    UIMain.init(800, 600, 100, 100, 0, 0);
+                    UIMain.initialize(800, 600, 100, 100, 0, 0);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

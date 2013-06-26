@@ -1,5 +1,5 @@
 /*
- * Copyright Billy Zheng and Wen Bian. All rights reserved.
+ * Copyright Wen Bian. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:
@@ -26,185 +26,87 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-//import static java.lang.System.out;
-
 package org.fiberdiffraction.jad;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-@SuppressWarnings("serial")
-public final class UIMenubar extends JMenuBar {
+/**
+ *  A class for creating a JMenuBar with a MenuData, on a JFrame. Each menu item 
+ *  is associated with a MenuActionListener, which hooks it up with a MenuAction
+ *  (one MenuAction per menu).
+ */
+public class UIMenubar {
 
-    private static final int  NMENU = 5;    
-    private static String[]   topMenuLabel = { "File", "Data", "Option", "Window", "Help" };
-    private static String[][] subMenuLabel = { 
-            { "Open", "Save", "Close", "Exit" }, // File
-            { "Input", "Output", "Background" }, // Data
-            { "Plot", "Output", },               // Option
-            { "Pattern", "Log" },                // Window
-            { "About" }                          // Help
-    };
+    private JMenuBar menuBar;
+    private JFrame parentFrame;
+    private MenuData menuData;
     
-    public UIMenubar(JFrame parent) {
-        createMenu(parent);
-    }
+    public UIMenubar(JFrame parentFrame, MenuData menuData) { 
+        this.parentFrame = parentFrame;
+        this.menuData = menuData;
+        initialize();
+    }   
     
-    /**
-     *  Create top menu and sub menus on the JFrame parent
+    /*
+     *  Build menuBar with menuData, add a MenuActionListener, and attach it to parentFrame 
+     *  
+     *  menu-0        menu-1       ...
+     *  menu-item-0   menu-item-0  ...
+     *  menu-item-1   menu-item-1  ...
+     *  ...           ...          ...
      */
-    private void createMenu(JFrame parent) {
-        
-        JMenuBar menuBar = new JMenuBar();
-        parent.setJMenuBar(menuBar);
+    protected void initialize() {
 
-        JMenu[] topMenu = new JMenu[NMENU];
-        for (int i = 0; i < NMENU; i++) {
-            topMenu[i] = new JMenu(topMenuLabel[i]);
-            menuBar.add(topMenu[i]);
+                    menuBar = new JMenuBar();     
+        int          nMenus = menuData.getNumberOfMenus();       
+        JMenu[]       menus = new JMenu[nMenus];
+        JMenuItem[][] items = new JMenuItem[nMenus][];
+        
+        for (int i = 0; i < nMenus; i++) {             
+            int nItems = menuData.getNumberOfMenuItems(i);
+            menus[i] = new JMenu(menuData.getMenuName(i)); 
+            items[i] = new JMenuItem[nItems];
+            MenuActionListener mal = new MenuActionListener(menuData.getMenuAction(i));
+
+            // build menus[i]: create menu items and add action listener
+            for (int j = 0; j < nItems; j++) {
+                items[i][j] = new JMenuItem(menuData.getMenuItemName(i, j));
+                items[i][j].addActionListener(mal);
+                menus[i].add(items[i][j]);
+            }             
+ 
+            menuBar.add(menus[i]);            
+        }      
+
+        parentFrame.setJMenuBar(menuBar);
+    }     
+    
+    /*
+     *  An ActionListener implementer. It connects a MenuAction 
+     *  corresponding to a menu item and calls its execute() on menu events
+     */
+    protected class MenuActionListener implements ActionListener {   
+        
+        private MenuAction menuAction;
+        
+        public MenuActionListener(MenuAction menuAction) {
+            this.menuAction = menuAction;
         }
-
-        JMenuItem[][] subMenu = new JMenuItem[NMENU][];
-        for (int i = 0; i < NMENU; i++) {
-            int n = subMenuLabel[i].length;
-            subMenu[i] = new JMenuItem[n];
-            for (int j = 0; j < n; j++) {
-                subMenu[i][j] = new JMenuItem(subMenuLabel[i][j]);
-                topMenu[i].add(subMenu[i][j]);
+        
+        public void actionPerformed(ActionEvent event) {
+            if(menuAction != null) {
+                String command = ((JMenuItem)event.getSource()).getText();
+                //System.out.println(command);
+                menuAction.execute(command);
             }
         }
-
-        // File menu ----------------------------------------------------------
         
-        // File - Open
-        subMenu[0][0].addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser fc = new JFileChooser();
-                int returnVal = fc.showOpenDialog(null);
-                if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    File file = fc.getSelectedFile();
-                    System.out.println(file.getAbsolutePath());
-                    ImageInput.getInputImage(file.getAbsolutePath());
-                } else {
-                    System.out.println("Open command cancelled");
-                }
-            }
-        });
+    } // class MenuActionListener
 
-        // File - Save
-        subMenu[0][1].addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser fc = new JFileChooser();
-                int returnVal = fc.showSaveDialog(null);
-                if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    File file = fc.getSelectedFile();
-                    System.out.println(file.getName());
-                } else {
-                    System.out.println("Open command cancelled");
-                }
-            }
-        });
-
-        // File - Close
-        subMenu[0][2].addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-
-        // File - Exit
-        subMenu[0][3].addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
-
-        // Data menu ----------------------------------------------------------
-        
-        // Data - Input
-        subMenu[1][0].addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-
-            }
-        });
-
-        // Data - Output
-        subMenu[1][1].addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-                try {
-                    // TODO
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        // Data - DataPlot
-        subMenu[1][2].addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-                try {
-                    // TODO
-                    //DataPlot bkgd = new DataPlot("Background", idata);
-                    //bkgd.setLocationRelativeTo(parent);
-                    //bkgd.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        // Option menu --------------------------------------------------------
-        
-        // Option - Plot
-        subMenu[2][0].addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-
-        // Option - Output
-        subMenu[2][1].addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-
-        // Window menu --------------------------------------------------------
-        
-        // Window - Pattern
-        subMenu[3][0].addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-                try {
-                    // TODO
-                    // Background bkgd = new Background("Background", idata);
-                    // bkgd.setLocationRelativeTo(parent);
-                    // bkgd.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        // Window - Log
-        subMenu[3][1].addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-             // TODO
-            }
-        });
-
-        // Help menu ----------------------------------------------------------
-        
-        // Help - About
-        subMenu[4][0].addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-             // TODO
-            }
-        });
-    }
-}
+    
+} // class UIMenubar
