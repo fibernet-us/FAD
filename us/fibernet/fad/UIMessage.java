@@ -26,30 +26,32 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.fiberdiffraction.jad;
+package us.fibernet.fad;
 
-import java.awt.BorderLayout;
+import java.awt.Dimension;
 import javax.swing.JFrame;
-import javax.swing.JComboBox;
-import javax.swing.JTextArea;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
+/**
+ * A JPanel containing a text field for displaying message and information
+ */
 @SuppressWarnings("serial")
-public class DataPlot extends JFrame {
+public final class UIMessage extends JPanel {
 
-    private int x = 100, y = 100, w = 400, h = 300; // top-left corner and dimension
-    private DataCore idata;
-
-    public DataPlot(String title, DataCore cd) {
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setBounds(x, y, w, h);
-        setTitle(title);
-
-        JComboBox comboBox = new JComboBox();
-        getContentPane().add(comboBox, BorderLayout.NORTH);
-
-        JTextArea textArea = new JTextArea();
-        getContentPane().add(textArea, BorderLayout.WEST);
-        idata = cd;
+    private JFrame parentFrame;
+    private JTextField textField;
+    
+    public UIMessage(JFrame parent, int width, int height) {
+        this.parentFrame = parent;
+        setPreferredSize(new Dimension(width, height)); 
+        textField = new JTextField();
+        textField.setBackground(this.getBackground().brighter());     
+        textField.setEditable(false);        
+    }
+    
+    public void setMessage(String messsage) {
+        textField.setText(messsage);
     }
 
 }

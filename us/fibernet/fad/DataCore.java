@@ -26,28 +26,15 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.fiberdiffraction.jad;
+package us.fibernet.fad;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import java.awt.Dimension;
+/**
+ *  DataCore holds the angular deconvolution data that include
+ *  input data and control parameters, output background information, 
+ *  and output deconvoluted data 
+ *
+ */
+public class DataCore {
 
-@SuppressWarnings("serial")
-public final class UIPloting extends JPanel {
-
-    private int width, height;
-    private JFrame parentFrame;
-    
-    public UIPloting(JFrame parent, int width, int height) {
-        this.parentFrame = parent;
-        this.width = width;
-        this.height = height;
-        setPreferredSize(new Dimension(width, height)); 
-        setMinimumSize(new Dimension(width, height)); 
-        initialize();
-    }
-    
-    private void initialize() {
-        
-    }
+ 
 }

@@ -26,7 +26,7 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.fiberdiffraction.jad;
+package us.fibernet.fad;
 
 import java.awt.EventQueue;
 

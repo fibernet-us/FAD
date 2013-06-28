@@ -26,15 +26,15 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.fiberdiffraction.jad;
+package us.fibernet.fad;
 
 /**
  * This file contains abstract class MenuData that provides menu data manipulation,
  * and concrete subclasses that contain actual menu data.
  * <p>
  * A subclass must override the getMenuNames method to provide the menu data, and 
- * override the getMenuActionClassName method to provide the name of the class 
- * responsible for handling events of a menu item.
+ * override the getMenuAction method to provide the name of the class responsible 
+ * for handling events of a menu item.
  * 
  */
 public abstract class MenuData {
@@ -43,12 +43,12 @@ public abstract class MenuData {
      * Sort of a factory method to get actual menu data. Subclasses must override this. 
      * Implementation example:
      * <pre>
-     * private final static String[][] menuNames= {
+     * private static final String[][] MENU_NAMES= {
      *         { "menu-0",   "menu-item-0", "menu-item-1"},
      *         { "menu-1",   "menu-item-0", "menu-item-1"}
      * };  
      * protected String[][] getMenuNames() {
-     *     return menuNames;
+     *     return MENU_NAMES;
      * }
      * </pre>
      * In current design, menu names are stored in a 2D array of Strings. Each sub-array 
@@ -111,7 +111,7 @@ public abstract class MenuData {
  */
 final class MainMenuData extends MenuData {
     
-    private final static String[][] menuNames = {
+    private static final String[][] MENU_NAMES = {
             { "File",    /**/ "Open", "Save", "Close", "Exit" },     
             { "Data",    /**/ "Input", "Output", "Background" },  
             { "Option",  /**/ "Plot", "Output"},       
@@ -119,7 +119,7 @@ final class MainMenuData extends MenuData {
             { "Help",    /**/ "About", "Resource" }
           };    
     
-    private final static MenuAction[] actions = {
+    private static final MenuAction[] ACTIONS = {
             new MainFileMenuAction(),
             new MainDataMenuAction(),
             new MainOptionMenuAction(),
@@ -129,7 +129,7 @@ final class MainMenuData extends MenuData {
     
     @Override
     protected String[][] getMenuNames() { 
-        return menuNames;     
+        return MENU_NAMES;     
     }
     
     /**
@@ -137,7 +137,7 @@ final class MainMenuData extends MenuData {
      */
     @Override
     public MenuAction getMenuAction(int menuID) { 
-        return actions[menuID];
+        return ACTIONS[menuID];
     }
 
 } // class MainMenuData
@@ -148,14 +148,14 @@ final class MainMenuData extends MenuData {
  */
 final class BackgroundMenuData extends MenuData {
     
-    private final static String[][] menuNames = {   
+    private static final String[][] MENU_NAMES = {   
             { "File",    /**/ "Open", "Save", "Exit"},   
             { "Data",    /**/ "Add", "Remove"},   
             { "Fit",     /**/ "Polynomial", "Spline" },  
             { "Option",  /**/ "Color", "Type"}
           };
     
-    private final static MenuAction[] actions = {
+    private static final MenuAction[] ACTIONS = {
             new BackgroundFileMenuAction(),
             new BackgroundDataMenuAction(),
             new BackgroundFitMenuAction(),
@@ -164,7 +164,7 @@ final class BackgroundMenuData extends MenuData {
     
     @Override
     protected String[][] getMenuNames() { 
-        return menuNames; 
+        return MENU_NAMES; 
     }
     
     /**
@@ -172,7 +172,7 @@ final class BackgroundMenuData extends MenuData {
      */
     @Override
     public MenuAction getMenuAction(int menuID) { 
-        return actions[menuID];
+        return ACTIONS[menuID];
     }
     
 } // class BackgroundMenuData

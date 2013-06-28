@@ -26,7 +26,7 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.fiberdiffraction.jad;
+package us.fibernet.fad;
 
 import java.util.*;
 import java.awt.Graphics2D;
@@ -59,9 +59,7 @@ public class ImageUtil {
     }
 
     /**
-     * 
-     * @param file
-     *            color table file
+     * @param file color table file
      * @return the rgb color table
      * @throws IOException
      */

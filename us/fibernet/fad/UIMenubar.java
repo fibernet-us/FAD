@@ -1,5 +1,5 @@
 /*
- * Copyright Wen Bian. All rights reserved.
+ * Copyright Wen Bian and Billy Zheng. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:
@@ -26,7 +26,7 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.fiberdiffraction.jad;
+package us.fibernet.fad;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;

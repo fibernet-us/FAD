@@ -26,21 +26,19 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.fiberdiffraction.jad;
-
+package us.fibernet.fad;
 
 import java.awt.EventQueue;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JFrame;
-import javax.swing.Box;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 /**
  * <pre>
- * The JAD main application window consists of 4 areas (besides title bar):
+ * The FAD main application window consists of 4 areas (besides title bar):
  *  _____________
  * |______0______|
  * |         |   |
@@ -54,7 +52,7 @@ import javax.swing.border.Border;
  */
 public final class UIMain {
 
-    private static final String JAD_VS = "JAD 0.2";
+    private static final String FAD_VS = "FAD 0.2";
     private static JFrame mainFrame;
     private static UIMenubar uiMenubar;
     private static UIPloting uiPloting;
@@ -91,7 +89,7 @@ public final class UIMain {
             hMessage = hMess;
         }
         
-        mainFrame = new JFrame(JAD_VS);
+        mainFrame = new JFrame(FAD_VS);
         mainFrame.setBounds(x, y, w, h);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -122,7 +120,7 @@ public final class UIMain {
      *              wControl, hMessage: width of control panel and height of message panel.
      */
     /*
-     *  TODO: parse/check command line argument & configuration file (~/.jad) 
+     *  TODO: parse/check command line argument & configuration file (~/.fad) 
      */ 
     public static void main(String[] args) {
 

@@ -26,7 +26,7 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.fiberdiffraction.jad;
+package us.fibernet.fad;
 
 import java.io.File;
 import javax.swing.JFileChooser;
@@ -60,31 +60,27 @@ public interface MenuAction {
 class MainFileMenuAction implements MenuAction {  
     
     // unless we have Java 1.7, use this for switching command in execute()
-    private static enum CommandEnum
-    {
-        Open, Save, Close, Exit;  // make sure they are exactly the same as in MenuData
-
-        public static CommandEnum toCommand(String command) {
-            try {
-                return valueOf(command); // converts String to 
-            } 
-            catch (Exception ex) {
-                return null;
-            }
-        }   
+    private static enum CommandEnum  {
+        OPEN, SAVE, CLOSE, EXIT; // same as those in MainMenuData File menu, case/space insensitive.
     }
     
     public void execute(String command) {
-        switch(CommandEnum.toCommand(command)) {
-            case Open:  open();
-                        break;
-            case Save:  save();
-                        break;
-            case Close: close();
-                        break;
-            case Exit:  exit();
-                        break;
-            default:    break;
+        try {
+            // use Enum's valueOf to convert string to enum
+            switch(CommandEnum.valueOf(command.toUpperCase().replaceAll("\\s",""))) {
+                case OPEN:  open();
+                break;
+                case SAVE:  save();
+                break;
+                case CLOSE: close();
+                break;
+                case EXIT:  exit();
+                break;
+                default:    break;
+            }
+        }
+        catch (Exception ex) {
+            System.out.println("Invalid menu item: " + command);
         }
     }
    

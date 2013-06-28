@@ -26,15 +26,30 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.fiberdiffraction.jad;
+package us.fibernet.fad;
 
-/**
- *  DataCore holds the angular deconvolution data that include
- *  input data and control parameters, output background information, 
- *  and output deconvoluted data 
- *
- */
-public class DataCore {
+import java.awt.BorderLayout;
+import javax.swing.JFrame;
+import javax.swing.JComboBox;
+import javax.swing.JTextArea;
 
- 
+@SuppressWarnings("serial")
+public class DataPlot extends JFrame {
+
+    private int x = 100, y = 100, w = 400, h = 300; // top-left corner and dimension
+    private DataCore idata;
+
+    public DataPlot(String title, DataCore cd) {
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setBounds(x, y, w, h);
+        setTitle(title);
+
+        JComboBox comboBox = new JComboBox();
+        getContentPane().add(comboBox, BorderLayout.NORTH);
+
+        JTextArea textArea = new JTextArea();
+        getContentPane().add(textArea, BorderLayout.WEST);
+        idata = cd;
+    }
+
 }

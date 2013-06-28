@@ -1,3 +1,1 @@
-JAD is a Java program for Angular Deconvolution of fiber diffraction patterns. 
-It aims to be functionality compatible with RADFN and to replace it eventually.
-For info about RADFN please visit http://fiberdiffraction.org
+FAD is a Java program for Fiber diffraction Angular Deconvolution. It aims for measuring intensity data from partially oriented specimens to the highest possible resolution. With X-ray diffraction data placed on a polar grid, FAD performs background subtraction and disorientation deconvolution, extracts the intensity for each "reflection" on the grid, and outputs amplitude or intensity for use in structure refinement with FX-PLOR or XPLOR-NIH. 
