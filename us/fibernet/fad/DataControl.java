@@ -1,5 +1,5 @@
 /*
- * Copyright Billy Zheng and Wen Bian. All rights reserved.
+ * Copyright Billy Zheng and Tony Yao. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:

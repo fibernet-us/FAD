@@ -26,7 +26,7 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package us.fibernet.fad;
+package us.fibernet.fad.menu;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -35,10 +35,10 @@ import javax.swing.JMenuItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 /**
  *  A class for creating a JMenuBar with a MenuData, on a JFrame. Each menu item 
- *  is associated with a MenuActionListener, which hooks it up with a MenuAction
- *  (one MenuAction per menu).
+ *  is associated with a MenuActionListener hooked to a MenuCommander.
  */
 public class UIMenubar {
 
@@ -49,7 +49,7 @@ public class UIMenubar {
     public UIMenubar(JFrame parentFrame, MenuData menuData) { 
         this.parentFrame = parentFrame;
         this.menuData = menuData;
-        initialize();
+        buildMenuBar();
     }   
     
     /*
@@ -60,7 +60,7 @@ public class UIMenubar {
      *  menu-item-1   menu-item-1  ...
      *  ...           ...          ...
      */
-    protected void initialize() {
+    protected void buildMenuBar() {
 
                     menuBar = new JMenuBar();     
         int          nMenus = menuData.getNumberOfMenus();       
@@ -71,11 +71,11 @@ public class UIMenubar {
             int nItems = menuData.getNumberOfMenuItems(i);
             menus[i] = new JMenu(menuData.getMenuName(i)); 
             items[i] = new JMenuItem[nItems];
-            MenuActionListener mal = new MenuActionListener(menuData.getMenuAction(i));
-
+            
             // build menus[i]: create menu items and add action listener
             for (int j = 0; j < nItems; j++) {
                 items[i][j] = new JMenuItem(menuData.getMenuItemName(i, j));
+                MenuActionListener mal = new MenuActionListener(menuData.getMenuItemCommander(i,j));
                 items[i][j].addActionListener(mal);
                 menus[i].add(items[i][j]);
             }             
@@ -87,26 +87,26 @@ public class UIMenubar {
     }     
     
     /*
-     *  An ActionListener implementer. It connects a MenuAction 
+     *  An ActionListener implementer. It connects a MenuCommander 
      *  corresponding to a menu item and calls its execute() on menu events
      */
     protected class MenuActionListener implements ActionListener {   
         
-        private MenuAction menuAction;
+        private MenuCommander menuCommand;
         
-        public MenuActionListener(MenuAction menuAction) {
-            this.menuAction = menuAction;
+        public MenuActionListener(MenuCommander menuCommand) {
+            this.menuCommand = menuCommand;
         }
         
         public void actionPerformed(ActionEvent event) {
-            if(menuAction != null) {
-                String command = ((JMenuItem)event.getSource()).getText();
+            if(menuCommand != null) {
+                //String command = ((JMenuItem)event.getSource()).getText();
                 //System.out.println(command);
-                menuAction.execute(command);
+                menuCommand.execute();
             }
         }
         
-    } // class MenuActionListener
+    } // class MenuCommandListener
 
     
 } // class UIMenubar

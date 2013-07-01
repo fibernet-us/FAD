@@ -1,5 +1,5 @@
 /*
- * Copyright Xiao Yi and Wen Bian. All rights reserved.
+ * Copyright Xiao Yi, Wen Bian and Philip Cook. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:
@@ -44,6 +44,15 @@ import com.sun.media.jai.codec.TIFFDecodeParam;
 import com.sun.media.jai.codec.ImageDecoder;
 import com.sun.media.jai.codec.ImageCodec;
 
+/**
+ * A utility class for reading pattern images in various formats.
+ * 
+ * Currently the following formats are supported:
+ * TIF: ref
+ * PLR: ref
+ * DAT: ref
+ *
+ */
 public final class PatternReader {
 
     private static int[][] image;

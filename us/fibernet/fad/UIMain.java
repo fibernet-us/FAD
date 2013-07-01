@@ -36,6 +36,10 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import us.fibernet.fad.menu.MenuDataMain;
+import us.fibernet.fad.menu.UIMenubar;
+
+
 /**
  * <pre>
  * The FAD main application window consists of 4 areas (besides title bar):
@@ -93,7 +97,7 @@ public final class UIMain {
         mainFrame.setBounds(x, y, w, h);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        uiMenubar = new UIMenubar(mainFrame, new MainMenuData());
+        uiMenubar = new UIMenubar(mainFrame, new MenuDataMain());
         uiPloting = new UIPloting(mainFrame, w - wControl, h - hMessage);
         uiMessage = new UIMessage(mainFrame, w - wControl, hMessage);
         uiControl = new UIControl(mainFrame, wControl,     h);

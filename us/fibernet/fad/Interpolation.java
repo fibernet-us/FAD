@@ -82,8 +82,8 @@ public class Interpolation {
         return y;
     }
     
-    public static void main(String[] args) {
-        Point2D[] input = {new Point2D.Double(1,4), new Point2D.Double(2,9), new Point2D.Double(10,121)};
+    public static void main0(String[] args) {
+        Point2D[] input = {new Point2D.Double(1,5), new Point2D.Double(2,11), new Point2D.Double(10,50)};
         Point2D[] pts = interpolation(input, 1);
         for(Point2D p: pts) {
             System.out.println(p);
