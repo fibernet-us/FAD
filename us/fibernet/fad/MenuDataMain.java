@@ -1,5 +1,5 @@
 /*
- * Copyright Billy Zheng. All rights reserved.
+ * Copyright Wen Bian. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:
@@ -28,28 +28,39 @@
 
 package us.fibernet.fad;
 
-import java.awt.BorderLayout;
-import javax.swing.JFrame;
-import javax.swing.JComboBox;
-import javax.swing.JTextArea;
+/**
+ * A utility class containing the main window's menu data
+ */
+public final class MenuDataMain extends MenuDataImpl {
+    
+    private static final String[][] MENU_NAMES = {
+        { "File",    /**/ "Open", "Save", "Close", "Exit" },     
+        { "Data",    /**/ "Input", "Output", "Background" },  
+        { "Option",  /**/ "Plot", "Output"},       
+        { "Window",  /**/ "Pattern", "Log" }, 
+        { "Help",    /**/ "About", "Resource" }
+    };  
 
-@SuppressWarnings("serial")
-public class DataPlot extends JFrame {
+    // one handler per menu
+    private static final MenuHandlerMain[] MENU_HANDLERS = {
+        new MenuHandlerMainFile(),  // File
+        new MenuHandlerMain(),      // Data     // TODO
+        new MenuHandlerMain(),      // Option   // TODO
+        new MenuHandlerMain(),      // Window   // TODO
+        new MenuHandlerMain()       // Help     // TODO
+    };
 
-    private int x = 100, y = 100, w = 400, h = 300; // top-left corner and dimension
-    private DataCore idata;
-
-    public DataPlot(String title, DataCore cd) {
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setBounds(x, y, w, h);
-        setTitle(title);
-
-        JComboBox comboBox = new JComboBox();
-        getContentPane().add(comboBox, BorderLayout.NORTH);
-
-        JTextArea textArea = new JTextArea();
-        getContentPane().add(textArea, BorderLayout.WEST);
-        idata = cd;
+    public MenuDataMain() {
+    }  
+     
+    @Override
+    protected String[][] getMenuNames() { 
+        return MENU_NAMES;     
+    }
+    
+    @Override
+    protected MenuHandler getMenuHandler(int menuID, int menuItemID) {  
+        return MENU_HANDLERS[menuID];
     }
 
-}
+} // class MenuDataMain

@@ -59,6 +59,10 @@ import javax.swing.JButton;
 import java.util.*;
 import javax.swing.JPopupMenu;
 
+/**
+ * Provides colormap manipulations on image display
+ *
+ */
 public class ColormapControlGUI {
 
     private JFrame frame;

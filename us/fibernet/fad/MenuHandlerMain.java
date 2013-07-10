@@ -26,55 +26,28 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package us.fibernet.fad.menu;
-
-import java.io.File;
-import javax.swing.JFileChooser;
-
-import us.fibernet.fad.ImageInput;
+package us.fibernet.fad;
 
 /**
- * A menu handler for the Main menu bar, File menu
+ * A default menu handler for the MenuDataMain
  */
-public class MenuHandlerMainFile extends MenuHandlerMain {  
-     
-    /*
-     * File -> Open
-     */
-    @Override
-    public void fileOpen() {
-        JFileChooser fc = new JFileChooser();   
-        int response = fc.showOpenDialog(null);       
-        if(response == JFileChooser.APPROVE_OPTION) {
-            File file = fc.getSelectedFile();
-            ImageInput.getInputImage(file.getAbsolutePath());
-        } 
-        else {
-            System.out.println("Open command cancelled");
-        }
-    }
- 
-    /*
-     * File -> Save
-     */
-    @Override
-    public void fileSave() {
-
-    }
+public class MenuHandlerMain implements MenuHandler { 
     
-    /*
-     * File -> Close
-     */
-    @Override
-    public void fileClose() {
+    public void fileOpen() {}   
+    public void fileSave() {}   
+    public void fileClose() {}    
+    public void fileExit() {}
 
-    }
-    
-    /*
-     * File -> Exit
-     */
-    @Override
-    public void fileExit() {
-        System.exit(0);
-    }
+    public void dataInput() {}   
+    public void dataOutput() {}  
+    public void dataBackground() {} 
+
+    public void optionPlot() {}  
+    public void optionOutput() {} 
+
+    public void windowPattern() {} 
+    public void windowLog() {}   
+
+    public void helpAbout() {}   
+    public void helpResource() {}               
 }

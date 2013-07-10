@@ -36,6 +36,10 @@ import java.io.*;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+/**
+ * provides routines for image display manipulation
+ *
+ */
 public class ImageUtil {
 
     private static final String colorTableDir = "ColorTables/";

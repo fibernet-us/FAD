@@ -55,6 +55,10 @@ import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+/**
+ * Display pattern as an BufferedImage as a JLabel
+ *
+ */
 public class PatternGUI {
 
     private JFrame frame;

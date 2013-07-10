@@ -32,6 +32,10 @@ import java.awt.geom.Point2D;
 import java.util.Arrays;
 import java.util.Comparator;
 
+/**
+ * Provide interpolation routines for a set of points
+ *
+ */
 public class Interpolation {
     /**
      * Generate an array of points with a given interval of x that defines a curve passing the input points

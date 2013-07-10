@@ -28,43 +28,28 @@
 
 package us.fibernet.fad;
 
+/**
+ * image reading demo
+ *
+ */
 public final class ImageInput {
 
     private ImageInput() {
     }
     
-    public static void getInputImage(String fname) {
+    public static void getInputImage(String... args) {
 
-        long start = System.nanoTime();
-        double radius = 0;
-
-        int[][] testImage = PatternReader.readPattern(fname);
-
-        if (testImage != null) {
-            PatternGUI pg = new PatternGUI(testImage, "ImageInput Image",
-                    radius);
-            pg.render();
-            System.out.println("Initialization takes: "
-                    + (System.nanoTime() - start) / 1000000000 + " seconds");
+        if(args.length < 1) {
+            return;
         }
-    }
-
-    public static void getInputImage(String[] args) {
-
+        
         long start = System.nanoTime();
         double radius = 200;
-
-        if (args.length == 0) {
-            System.out
-                    .println("Usage: java ImageInput image-file [width] [height]");
-            System.exit(0);
-        }
 
         int[][] testImage = PatternReader.readPattern(args);
 
         if (testImage != null) {
-            PatternGUI pg = new PatternGUI(testImage, "ImageInput Image",
-                    radius);
+            PatternGUI pg = new PatternGUI(testImage, "ImageInput Image", radius);
             pg.render();
             System.out.println("Initialization takes: "
                     + (System.nanoTime() - start) / 1000000000 + " seconds");

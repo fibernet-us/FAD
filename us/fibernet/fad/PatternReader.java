@@ -59,48 +59,44 @@ public final class PatternReader {
     
     private PatternReader() {
     }
-
-    /**
-     * Parse the pattern file type by extension and call accordingly a read method
-     */
-    public static int[][] readPattern(String fname) {
-
-        if (endsWithIgnoreCase(fname, "tif")) {
-            return readTif(fname);
-        } 
-        else if (endsWithIgnoreCase(fname, "plr")) {
-            return readPlr(fname);
-        } 
-        else {
-            ; // TODO
-        }
-        
-        return null;
-    }
-
+    
     /**
      * Parse the pattern file extension and call accordingly a read method
      * Read pattern files that come with attributes not stored in itself
      */
     public static int[][] readPattern(String[] args) {
 
+        if(args == null || args.length < 1) {
+            return null;
+        }
+            
         String fname = args[0];
-
-        if (endsWithIgnoreCase(fname, "dat")) {
-            int w = 0, h = 0;
-            try {
-                w = Integer.parseInt(args[1]);
-                h = Integer.parseInt(args[2]);
-                return readDat(fname, w, h);
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println("dat image width and height must be specified");
+        
+        if(args.length == 1) {
+            if (fname.toLowerCase().endsWith("tif")) {
+                return readTif(fname);
+            } 
+            else if (fname.toLowerCase().endsWith("plr")) {
+                return readPlr(fname);
+            } 
+        }
+        else {
+            if (fname.toLowerCase().endsWith("dat")) {
+                int w = 0, h = 0;
+                try {
+                    w = Integer.parseInt(args[1]);
+                    h = Integer.parseInt(args[2]);
+                    return readDat(fname, w, h);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    System.out.println("dat image width and height must be specified");
+                }
             }
         }
 
         return null;
     }
-
+    
     /*
      * Read a raw data image and extract image data into a 2D array
      */
@@ -183,41 +179,8 @@ public final class PatternReader {
         
         return null;
     }
-    
-    
-    
-    /*
-     * The following code is copied from:
-     * http://www.java2s.com/Tutorial/Java/0040__Data-Type/CheckifaStringendswithaspecifiedsuffix.htm
-     */
-    
-    /*
-     * Check if a String ends with a specified suffix, case insensitive.
-     */
-    private static boolean endsWithIgnoreCase(String str, String suffix) {
-        return endsWith(str, suffix, true);
-    }
 
-    /*
-     * Check if a String ends with a specified suffix
-     */
-    private static boolean endsWith(String str, String suffix,
-            boolean ignoreCase) {
-
-        if (str == null || suffix == null) {
-            return (str == null && suffix == null);
-        }
-
-        if (suffix.length() > str.length()) {
-            return false;
-        }
-
-        int strOffset = str.length() - suffix.length();
-        return str.regionMatches(ignoreCase, strOffset, suffix, 0,
-                suffix.length());
-    }
-
-}
+} // class PatternReader
 
 
 /**

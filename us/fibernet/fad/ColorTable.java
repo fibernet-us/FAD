@@ -28,6 +28,10 @@
 
 package us.fibernet.fad;
 
+/**
+ * A RGB color table
+ *
+ */
 public class ColorTable {
 
     private byte[] red;
