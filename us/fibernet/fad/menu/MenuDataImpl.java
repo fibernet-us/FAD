@@ -26,7 +26,7 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package us.fibernet.fad;
+package us.fibernet.fad.menu;
 
  /**
  * MenuDataImpl provides a partial implementation of MenuData. Concrete subclasses 

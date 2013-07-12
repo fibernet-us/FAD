@@ -26,54 +26,18 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package us.fibernet.fad;
-
-import java.io.File;
-import javax.swing.JFileChooser;
-
+package us.fibernet.fad.menu;
 
 /**
- * A menu handler for the Main menu bar, File menu
+ * An interface defining a middleman between menu event (listener) and menu handler.
+ * Called by menu listener, and in turn, calls corresponding menu handler. 
+ * Concrete MenuCommander(s) are created by concrete MenuData(s).
+ * 
+ * Roles with regard to Command Pattern:
+ * MenuListener  --> Invoker
+ * MenuCommander --> Command 
+ * MenuHandler   --> Receiver 
  */
-public class MenuHandlerMainFile extends MenuHandlerMain {  
-     
-    /*
-     * File -> Open
-     */
-    @Override
-    public void fileOpen() {
-        JFileChooser fc = new JFileChooser();   
-        int response = fc.showOpenDialog(null);       
-        if(response == JFileChooser.APPROVE_OPTION) {
-            File file = fc.getSelectedFile();
-            ImageInput.getInputImage(file.getAbsolutePath());
-        } 
-        else {
-            System.out.println("Open command cancelled");
-        }
-    }
- 
-    /*
-     * File -> Save
-     */
-    @Override
-    public void fileSave() {
-
-    }
-    
-    /*
-     * File -> Close
-     */
-    @Override
-    public void fileClose() {
-
-    }
-    
-    /*
-     * File -> Exit
-     */
-    @Override
-    public void fileExit() {
-        System.exit(0);
-    }
+public interface MenuCommander {
+        void execute();
 }

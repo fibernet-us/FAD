@@ -26,12 +26,14 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package us.fibernet.fad;
+package us.fibernet.fad.menu;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

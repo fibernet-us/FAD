@@ -26,28 +26,15 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package us.fibernet.fad;
+package us.fibernet.fad.menu;
 
 /**
- * A default menu handler for the MenuDataMain
+ * MenuHandler defines a common interface for all MenuHandlers.
+ * 
+ * No common method is defined. When a concrete MenuHandler is called, 
+ * caller looks up the MenuHandler to see if it has certain methods, 
+ * and if it does, caller calls the methods; if not, caller complains.
  */
-public class MenuHandlerMain implements MenuHandler { 
-    
-    public void fileOpen() {}   
-    public void fileSave() {}   
-    public void fileClose() {}    
-    public void fileExit() {}
+public interface MenuHandler {
 
-    public void dataInput() {}   
-    public void dataOutput() {}  
-    public void dataBackground() {} 
-
-    public void optionPlot() {}  
-    public void optionOutput() {} 
-
-    public void windowPattern() {} 
-    public void windowLog() {}   
-
-    public void helpAbout() {}   
-    public void helpResource() {}               
 }

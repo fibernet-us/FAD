@@ -1,4 +1,3 @@
-
 /*
  * Copyright Wen Bian. All rights reserved.
  *
@@ -27,18 +26,41 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package us.fibernet.fad;
+package us.fibernet.fad.menu;
 
 /**
- * An interface defining a middleman between menu event (listener) and menu handler.
- * Called by menu listener, and in turn, calls corresponding menu handler. 
- * Concrete MenuCommander(s) are created by concrete MenuData(s).
- * 
- * Roles with regard to Command Pattern:
- * MenuListener  --> Invoker
- * MenuCommander --> Command 
- * MenuHandler   --> Receiver 
+ * A utility class containing the main window's menu data
  */
-public interface MenuCommander {
-        void execute();
-}
+public final class MenuDataMain extends MenuDataImpl {
+    
+    private static final String[][] MENU_NAMES = {
+        { "File",    /**/ "Open", "Save", "Close", "Exit" },     
+        { "Data",    /**/ "Input", "Output", "Background" },  
+        { "Option",  /**/ "Plot", "Output"},       
+        { "Window",  /**/ "Pattern", "Log" }, 
+        { "Help",    /**/ "About", "Resource" }
+    };  
+
+    // one handler per menu
+    private static final MenuHandlerMain[] MENU_HANDLERS = {
+        new MenuHandlerMainFile(),  // File
+        new MenuHandlerMain(),      // Data     // TODO
+        new MenuHandlerMain(),      // Option   // TODO
+        new MenuHandlerMain(),      // Window   // TODO
+        new MenuHandlerMain()       // Help     // TODO
+    };
+
+    public MenuDataMain() {
+    }  
+     
+    @Override
+    protected String[][] getMenuNames() { 
+        return MENU_NAMES;     
+    }
+    
+    @Override
+    protected MenuHandler getMenuHandler(int menuID, int menuItemID) {  
+        return MENU_HANDLERS[menuID];
+    }
+
+} // class MenuDataMain

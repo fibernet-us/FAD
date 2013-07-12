@@ -26,41 +26,25 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package us.fibernet.fad;
+package us.fibernet.fad.menu;
 
 /**
- * A utility class containing the main window's menu data
+ * An interface defining essential menu data functions to be used by a menu builder
  */
-public final class MenuDataMain extends MenuDataImpl {
+public interface MenuData {
+
+    /** @return  total number of menus in this MenuData */
+    int getNumberOfMenus();
     
-    private static final String[][] MENU_NAMES = {
-        { "File",    /**/ "Open", "Save", "Close", "Exit" },     
-        { "Data",    /**/ "Input", "Output", "Background" },  
-        { "Option",  /**/ "Plot", "Output"},       
-        { "Window",  /**/ "Pattern", "Log" }, 
-        { "Help",    /**/ "About", "Resource" }
-    };  
-
-    // one handler per menu
-    private static final MenuHandlerMain[] MENU_HANDLERS = {
-        new MenuHandlerMainFile(),  // File
-        new MenuHandlerMain(),      // Data     // TODO
-        new MenuHandlerMain(),      // Option   // TODO
-        new MenuHandlerMain(),      // Window   // TODO
-        new MenuHandlerMain()       // Help     // TODO
-    };
-
-    public MenuDataMain() {
-    }  
-     
-    @Override
-    protected String[][] getMenuNames() { 
-        return MENU_NAMES;     
-    }
+    /** @return  total number of menu items in the menu identified by menuID */
+    int getNumberOfMenuItems(int menuID);
     
-    @Override
-    protected MenuHandler getMenuHandler(int menuID, int menuItemID) {  
-        return MENU_HANDLERS[menuID];
-    }
-
-} // class MenuDataMain
+    /** @return  name of the menu identified by menuID */
+    String getMenuName(int menuID);
+    
+    /** @return  name of the menu item identified by menuID and menuItemID */
+    String getMenuItemName(int menuID, int menuItemID);
+    
+    /** @return  MenuCommander responsible for the menu item identified by menuID and menuItemID */
+    MenuCommander getMenuItemCommander(int menuID, int menuItemID);
+}
