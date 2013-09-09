@@ -26,18 +26,25 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package us.fibernet.fad.menu;
+package us.fibernet.fad;
 
 /**
- * An interface defining a middleman between menu event (listener) and menu handler.
- * Called by menu listener, and in turn, calls corresponding menu handler. 
- * Concrete MenuCommander(s) are created by concrete MenuData(s).
- * 
- * Roles with regard to Command Pattern:
- * MenuListener  --> Invoker
- * MenuCommander --> Command 
- * MenuHandler   --> Receiver 
+ * An interface defining essential menu data functions to be used by a menu builder
  */
-public interface MenuCommander {
-        void execute();
+public interface MenuData {
+
+    /** @return  total number of menus in this MenuData */
+    int getNumberOfMenus();
+    
+    /** @return  total number of menu items in the menu identified by menuID */
+    int getNumberOfMenuItems(int menuID);
+    
+    /** @return  name of the menu identified by menuID */
+    String getMenuName(int menuID);
+    
+    /** @return  name of the menu item identified by menuID and menuItemID */
+    String getMenuItemName(int menuID, int menuItemID);
+    
+    /** @return  MenuCommander responsible for the menu item identified by menuID and menuItemID */
+    MenuCommander getMenuItemCommander(int menuID, int menuItemID);
 }

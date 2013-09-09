@@ -1,5 +1,5 @@
 /*
- * Copyright Billy Zheng. All rights reserved.
+ * Copyright Wen Bian. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:
@@ -29,12 +29,25 @@
 package us.fibernet.fad;
 
 /**
- *  DataCore holds the angular deconvolution data that include
- *  input data and control parameters, output background information, 
- *  and output deconvoluted data 
- *
+ * A default menu handler for the MenuDataMain
  */
-public class DataCore {
+public class MenuHandlerMain implements MenuHandler { 
+    
+    public void fileOpen() {}   
+    public void fileSave() {}   
+    public void fileClose() {}    
+    public void fileExit() {}
 
- 
+    public void dataInput() {}   
+    public void dataOutput() {}  
+    public void dataBackground() {} 
+
+    public void optionPlot() {}  
+    public void optionOutput() {} 
+
+    public void windowPattern() {} 
+    public void windowLog() {}   
+
+    public void helpAbout() {}   
+    public void helpResource() {}               
 }

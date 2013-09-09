@@ -26,28 +26,55 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package us.fibernet.fad.menu;
+package us.fibernet.fad;
+
+import java.io.File;
+import javax.swing.JFileChooser;
+
+
 
 /**
- * A default menu handler for the MenuDataMain
+ * A menu handler for the Main menu bar, File menu
  */
-public class MenuHandlerMain implements MenuHandler { 
+public class MenuHandlerMainFile extends MenuHandlerMain {  
+     
+    /*
+     * File -> Open
+     */
+    @Override
+    public void fileOpen() {
+        JFileChooser fc = new JFileChooser(System.getProperty("user.dir"));   
+        int response = fc.showOpenDialog(null);       
+        if(response == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            ImageInput.getInputImage(file.getAbsolutePath());
+        } 
+        else {
+            System.out.println("Open command cancelled");
+        }
+    }
+ 
+    /*
+     * File -> Save
+     */
+    @Override
+    public void fileSave() {
+
+    }
     
-    public void fileOpen() {}   
-    public void fileSave() {}   
-    public void fileClose() {}    
-    public void fileExit() {}
+    /*
+     * File -> Close
+     */
+    @Override
+    public void fileClose() {
 
-    public void dataInput() {}   
-    public void dataOutput() {}  
-    public void dataBackground() {} 
-
-    public void optionPlot() {}  
-    public void optionOutput() {} 
-
-    public void windowPattern() {} 
-    public void windowLog() {}   
-
-    public void helpAbout() {}   
-    public void helpResource() {}               
+    }
+    
+    /*
+     * File -> Exit
+     */
+    @Override
+    public void fileExit() {
+        System.exit(0);
+    }
 }

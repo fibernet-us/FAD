@@ -36,8 +36,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import us.fibernet.fad.menu.MenuDataMain;
-import us.fibernet.fad.menu.UIMenubar;
 
 
 

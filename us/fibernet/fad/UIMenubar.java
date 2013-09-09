@@ -26,7 +26,7 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package us.fibernet.fad.menu;
+package us.fibernet.fad;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
