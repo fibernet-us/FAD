@@ -6,7 +6,7 @@
  *
  * - Redistributions of source code must retain the above copyright notice, this list
  *   of conditions and the following disclaimer.
- * 
+ *
  * - Redistributions in binary form must reproduce the above copyright notice, this
  *   list of conditions and the following disclaimer listed in this license in the
  *   documentation and/or other materials provided with the distribution.
@@ -31,23 +31,23 @@ package us.fibernet.fad;
 /**
  * A default menu handler for the MenuDataMain
  */
-public class MenuHandlerMain implements MenuHandler { 
-    
-    public void fileOpen() {}   
-    public void fileSave() {}   
-    public void fileClose() {}    
+public class MenuHandlerMain implements MenuHandler {
+
+    public void fileOpen() {}
+    public void fileSave() {}
+    public void fileClose() {}
     public void fileExit() {}
 
-    public void dataInput() {}   
-    public void dataOutput() {}  
-    public void dataBackground() {} 
+    public void dataInput() {}
+    public void dataOutput() {}
+    public void dataBackground() {}
 
-    public void optionPlot() {}  
-    public void optionOutput() {} 
+    public void optionPlot() {}
+    public void optionOutput() {}
 
-    public void windowPattern() {} 
-    public void windowLog() {}   
+    public void windowPattern() {}
+    public void windowLog() {}
 
-    public void helpAbout() {}   
-    public void helpResource() {}               
+    public void helpAbout() {}
+    public void helpResource() {}
 }

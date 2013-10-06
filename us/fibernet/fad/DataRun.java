@@ -29,7 +29,7 @@
 package us.fibernet.fad;
 
 /**
- * A class to hold Command related user input. 
+ * A class to hold Command related user input.
  */
 public class DataRun {
 
@@ -60,29 +60,29 @@ public class DataRun {
 		/*
 		try {
 			switch(s) {
-			case "VcurR": VcurR = Integer.parseInt(v); 
+			case "VcurR": VcurR = Integer.parseInt(v);
 			              break;
-			case "Vcut":  Vcut = Double.parseDouble(v); 
+			case "Vcut":  Vcut = Double.parseDouble(v);
 			              break;
 			case "Init":  runInit();
 			              break;
-			case "Batch": runBatch(); 
+			case "Batch": runBatch();
 			              break;
-			case "CurrR": runCurrR(); 
+			case "CurrR": runCurrR();
 			              break;
-			case "NextR": runNextR(); 
+			case "NextR": runNextR();
 			              break;
-			case "PrevR": runPrevR(); 
+			case "PrevR": runPrevR();
 			              break;
-			case "Cut":   runCut(); 
+			case "Cut":   runCut();
 			              break;
-			case "Uncut": runUncut(); 
+			case "Uncut": runUncut();
 			              break;
-			case "Integ": runInteg(); 
+			case "Integ": runInteg();
 			              break;
-			case "Summa": runSumma(); 
+			case "Summa": runSumma();
 			              break;
-			case "Help":  runHelp(); 
+			case "Help":  runHelp();
 			              break;
 			default:      System.out.println("*** Who are you? " + s);
 			              break;
@@ -98,21 +98,21 @@ public class DataRun {
 
 	public void runBatch() {}
 
-	public void runCurrR()  {} 
+	public void runCurrR()  {}
 
-	public void runNextR()  {} 
+	public void runNextR()  {}
 
-	public void runPrevR()  {} 
+	public void runPrevR()  {}
 
-	public void runCut()  {} 
+	public void runCut()  {}
 
-	public void runUncut()  {} 
+	public void runUncut()  {}
 
-	public void runInteg()  {} 
+	public void runInteg()  {}
 
-	public void runSumma()  {} 
+	public void runSumma()  {}
 
-	public void runHelp()  {} 
+	public void runHelp()  {}
 
 	public String toString() {
 		return "VcurR=" + VcurR + ", Vcut=" + Vcut;

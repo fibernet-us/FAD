@@ -6,7 +6,7 @@
  *
  * - Redistributions of source code must retain the above copyright notice, this list
  *   of conditions and the following disclaimer.
- * 
+ *
  * - Redistributions in binary form must reproduce the above copyright notice, this
  *   list of conditions and the following disclaimer listed in this license in the
  *   documentation and/or other materials provided with the distribution.
@@ -41,15 +41,15 @@ public final class UIMessage extends JPanel {
 
     private JFrame parentFrame;
     private JTextField textField;
-    
+
     public UIMessage(JFrame parent, int width, int height) {
         this.parentFrame = parent;
-        setPreferredSize(new Dimension(width, height)); 
+        setPreferredSize(new Dimension(width, height));
         textField = new JTextField();
-        textField.setBackground(this.getBackground().brighter());     
-        textField.setEditable(false);        
+        textField.setBackground(this.getBackground().brighter());
+        textField.setEditable(false);
     }
-    
+
     public void setMessage(String messsage) {
         textField.setText(messsage);
     }

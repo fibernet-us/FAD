@@ -6,7 +6,7 @@
  *
  * - Redistributions of source code must retain the above copyright notice, this list
  *   of conditions and the following disclaimer.
- * 
+ *
  * - Redistributions in binary form must reproduce the above copyright notice, this
  *   list of conditions and the following disclaimer listed in this license in the
  *   documentation and/or other materials provided with the distribution.
@@ -60,7 +60,7 @@ public class UIControl extends JPanel {
     private JTabbedPane controlTabs;
     private JPanel pageRun, pageInp, pagePar, pageBg;
 
-    private Map<String, DatumDef> parTable;   
+    private Map<String, DatumDef> parTable;
 
     /**
      * set up dimension attribute and create control UI
@@ -69,8 +69,8 @@ public class UIControl extends JPanel {
         this.parentFrame = parent;
         this.width = width;
         this.height = height;
-        setPreferredSize(new Dimension(width, height)); 
-        setMinimumSize(new Dimension(width, height)); 
+        setPreferredSize(new Dimension(width, height));
+        setMinimumSize(new Dimension(width, height));
         parTable = new HashMap<String, DatumDef>();
         initialize();
     }
@@ -96,8 +96,8 @@ public class UIControl extends JPanel {
         add(controlTabs, BorderLayout.CENTER);
     }
 
-    //public DataControl.DatumDef 
-    
+    //public DataControl.DatumDef
+
     private void createTabPage(JPanel parent, DatumDef[] widgets) {
 
         //
@@ -126,10 +126,10 @@ public class UIControl extends JPanel {
                     //
                 case TFIELD:
                     jc = new JTextField();
-                    jc.setName(widgets[i].getName());                
+                    jc.setName(widgets[i].getName());
                     jc.setMinimumSize(new Dimension(WIDGET_WIDTH, WIDGET_HEIGHT));
                     jc.setMaximumSize(new Dimension(WIDGET_WIDTH, WIDGET_HEIGHT));
-                    jclist.add(jc);    
+                    jclist.add(jc);
 
                     ((JTextField) jc).setColumns(10);
                     ((JTextField) jc).setText(widgets[i].getStringValue());
@@ -147,7 +147,7 @@ public class UIControl extends JPanel {
                     });
 
                     widgets[i].setGui(jc);
-                    parTable.put(widgets[i].getName(), widgets[i]);    
+                    parTable.put(widgets[i].getName(), widgets[i]);
                     break;
                     //
                 default:

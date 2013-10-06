@@ -32,7 +32,7 @@ import javax.swing.JComponent;
 
 /**
  * A class to hold parameters read from pattern file
- */ 
+ */
 public class DataInput {
 	
 	class DataItem {

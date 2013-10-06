@@ -252,7 +252,7 @@ public class PatternGUI {
 
     /**
      * Return the end point of the linear function y=k*x
-     * 
+     *
      * @param k
      *            the coefficient of the linear function
      * @return the end point

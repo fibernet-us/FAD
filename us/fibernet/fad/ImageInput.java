@@ -36,13 +36,13 @@ public final class ImageInput {
 
     private ImageInput() {
     }
-    
+
     public static void getInputImage(String... args) {
 
         if(args.length < 1) {
             return;
         }
-        
+
         long start = System.nanoTime();
         double radius = 200;
 

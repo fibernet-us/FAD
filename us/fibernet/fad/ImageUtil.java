@@ -97,7 +97,7 @@ public class ImageUtil {
 
     /**
      * Display the color table. Used for test
-     * 
+     *
      * @param table
      */
     static void displayColorTable(List<List<Byte>> table) {
@@ -126,7 +126,7 @@ public class ImageUtil {
     /**
      * Given a double[][] and number of colors, convert it to an int[][] pattern
      * with values within the range of colors.
-     * 
+     *
      * @param input
      * @param numColors
      *            number of colors used.
@@ -154,7 +154,7 @@ public class ImageUtil {
     }
 
     /**
-     * 
+     *
      * @param input
      *            2D array
      * @param numColors
@@ -188,7 +188,7 @@ public class ImageUtil {
     }
 
     /**
-     * 
+     *
      * @param array
      *            a 2D double[][] array
      * @return 2D int[][] array
@@ -202,7 +202,7 @@ public class ImageUtil {
     }
 
     /**
-     * 
+     *
      * @param width
      * @param height
      * @return a 2D image in the form of double[][]
@@ -218,7 +218,7 @@ public class ImageUtil {
     }
 
     /**
-     * 
+     *
      * @param image
      * @return a copy of the input image
      */
@@ -233,7 +233,7 @@ public class ImageUtil {
 
     /**
      * To resize the image to fit in the JLabel, and set it to the JLabel
-     * 
+     *
      * @param label
      *            the JLabel to hold the image
      * @param image
@@ -253,7 +253,7 @@ public class ImageUtil {
     }
 
     /**
-     * 
+     *
      * @param width
      * @param height
      * @return a rainbow image based on the default color table
@@ -291,7 +291,7 @@ public class ImageUtil {
     }
 
     /**
-     * 
+     *
      * @return a rainbow image based on the default color table
      */
     static BufferedImage getRainbowImage() {
@@ -330,7 +330,7 @@ public class ImageUtil {
 
     /**
      * Given a 2D array, return a image with the default color table
-     * 
+     *
      * @param input
      *            2D array
      * @return BufferedImage using the default color table
@@ -371,7 +371,7 @@ public class ImageUtil {
 
     /**
      * GaussianElimination
-     * 
+     *
      * @param A
      *            the x matrix
      * @param b
@@ -428,7 +428,7 @@ public class ImageUtil {
 
     /**
      * display the image in the form of int[][]. Use to check 2D array.
-     * 
+     *
      * @param image
      *            input image
      */

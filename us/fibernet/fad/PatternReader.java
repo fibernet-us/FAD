@@ -46,7 +46,7 @@ import com.sun.media.jai.codec.ImageCodec;
 
 /**
  * A utility class for reading pattern images in various formats.
- * 
+ *
  * Currently the following formats are supported:
  * TIF: ref
  * PLR: ref
@@ -56,10 +56,10 @@ import com.sun.media.jai.codec.ImageCodec;
 public final class PatternReader {
 
     private static int[][] image;
-    
+
     private PatternReader() {
     }
-    
+
     /**
      * Parse the pattern file extension and call accordingly a read method
      * Read pattern files that come with attributes not stored in itself
@@ -69,16 +69,16 @@ public final class PatternReader {
         if(args == null || args.length < 1) {
             return null;
         }
-            
+
         String fname = args[0];
-        
+
         if(args.length == 1) {
             if (fname.toLowerCase().endsWith("tif")) {
                 return readTif(fname);
-            } 
+            }
             else if (fname.toLowerCase().endsWith("plr")) {
                 return readPlr(fname);
-            } 
+            }
         }
         else {
             if (fname.toLowerCase().endsWith("dat")) {
@@ -96,7 +96,7 @@ public final class PatternReader {
 
         return null;
     }
-    
+
     /*
      * Read a raw data image and extract image data into a 2D array
      */
@@ -165,18 +165,18 @@ public final class PatternReader {
      * Read a PLR image and extract image data into a 2D array
      */
     public static int[][] readPlr(String fname) {
-        
+
         try {
             BufferedReader br = new BufferedReader(new FileReader(fname));
             DataPlr dp = new DataPlr();
             dp.parseData(br);
-            br.close();            
+            br.close();
             return dp.getImageData();
         }
         catch(Exception e) {
             e.printStackTrace();
         }
-        
+
         return null;
     }
 

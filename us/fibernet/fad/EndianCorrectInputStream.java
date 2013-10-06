@@ -3,8 +3,8 @@
  * tools.EndianNeutralInputStream, because that gives an endian-correct result
  * from the standard <code>DataInput</code> methods, and will also read unsigned
  * types.
- * 
- * 
+ *
+ *
  * @author Philip Cook (imported this code)
  * @version $Id$
  */
@@ -24,7 +24,7 @@ public class EndianCorrectInputStream extends DataInputStream {
 
     /**
      * Constructor for a disk file.
-     * 
+     *
      * @param filename
      *            filename for datafile
      * @param be
@@ -40,7 +40,7 @@ public class EndianCorrectInputStream extends DataInputStream {
 
     /**
      * Constructor for an InputStream.
-     * 
+     *
      * @param is
      *            InputStream to read data from
      * @param be

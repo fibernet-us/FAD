@@ -74,11 +74,11 @@ public class DataGauss {
 /*
 		try {
 			switch(s) {
-			case "IG":    IG    = Integer.parseInt(d); 
+			case "IG":    IG    = Integer.parseInt(d);
 			              break;
-			case "SIG1":  SIG1  = Double.parseDouble(d); 
+			case "SIG1":  SIG1  = Double.parseDouble(d);
 			              break;
-			case "SIGG2": SIGG2 = Double.parseDouble(d); 
+			case "SIGG2": SIGG2 = Double.parseDouble(d);
 			              break;
 			case "DCEN":  DCEN  = Double.parseDouble(d);
 			              break;
@@ -95,7 +95,7 @@ public class DataGauss {
 	}
 	
 	public String toString() {
-		return "IG=" + IG + ", SIG1=" + SIG1 + ", SIGG2=" + SIGG2 + 
+		return "IG=" + IG + ", SIG1=" + SIG1 + ", SIGG2=" + SIGG2 +
 		       ", DCEN=" + DCEN + ", GRAT=" + GRAT;
 	}
 }

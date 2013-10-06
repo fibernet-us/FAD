@@ -6,7 +6,7 @@
  *
  * - Redistributions of source code must retain the above copyright notice, this list
  *   of conditions and the following disclaimer.
- * 
+ *
  * - Redistributions in binary form must reproduce the above copyright notice, this
  *   list of conditions and the following disclaimer listed in this license in the
  *   documentation and/or other materials provided with the distribution.
@@ -35,16 +35,16 @@ public interface MenuData {
 
     /** @return  total number of menus in this MenuData */
     int getNumberOfMenus();
-    
+
     /** @return  total number of menu items in the menu identified by menuID */
     int getNumberOfMenuItems(int menuID);
-    
+
     /** @return  name of the menu identified by menuID */
     String getMenuName(int menuID);
-    
+
     /** @return  name of the menu item identified by menuID and menuItemID */
     String getMenuItemName(int menuID, int menuItemID);
-    
+
     /** @return  MenuCommander responsible for the menu item identified by menuID and menuItemID */
     MenuCommander getMenuItemCommander(int menuID, int menuItemID);
 }

@@ -6,7 +6,7 @@
  *
  * - Redistributions of source code must retain the above copyright notice, this list
  *   of conditions and the following disclaimer.
- * 
+ *
  * - Redistributions in binary form must reproduce the above copyright notice, this
  *   list of conditions and the following disclaimer listed in this license in the
  *   documentation and/or other materials provided with the distribution.
@@ -35,17 +35,17 @@ import javax.swing.JTextField;
 enum DataType { BUTTON, TFIELD, LABELED_TFIELD };
 
 /**
- * 
+ *
  * DataControl class contains all data items associated with control panels.
  * Each datum is defined in a class DatumDef holding its name, type, value
  * and the associated gui component.
- * 
+ *
  */
 public final class DataControl {
-    
-    private DataControl() { 
-    } 
-    
+
+    private DataControl() {
+    }
+
     // RUN tab
     static DatumDef[] dataRun = {
         //
@@ -56,83 +56,83 @@ public final class DataControl {
         new DatumDef(DataType.BUTTON, "NextR", 0), new DatumDef(DataType.BUTTON, "PrevR",  0),
         new DatumDef(DataType.BUTTON, "Cut",   0), new DatumDef(DataType.TFIELD, "Dcut",   0),
         new DatumDef(DataType.BUTTON, "Uncut", 0), new DatumDef(DataType.BUTTON, "Intgr",  0),
-        new DatumDef(DataType.BUTTON, "Summ",  0), new DatumDef(DataType.BUTTON, "Help",   0) 
+        new DatumDef(DataType.BUTTON, "Summ",  0), new DatumDef(DataType.BUTTON, "Help",   0)
     };
 
     // INP tab
-    static DatumDef[] dataInp = { 
-        new DatumDef(DataType.LABELED_TFIELD, "XWAV",   1.0000), 
+    static DatumDef[] dataInp = {
+        new DatumDef(DataType.LABELED_TFIELD, "XWAV",   1.0000),
         new DatumDef(DataType.LABELED_TFIELD, "SFD",  250.1000),
-        new DatumDef(DataType.LABELED_TFIELD, "C",      6.0000), 
+        new DatumDef(DataType.LABELED_TFIELD, "C",      6.0000),
         new DatumDef(DataType.LABELED_TFIELD, "DR",     0.0500),
-        new DatumDef(DataType.LABELED_TFIELD, "WR",     1.0000), 
+        new DatumDef(DataType.LABELED_TFIELD, "WR",     1.0000),
         new DatumDef(DataType.LABELED_TFIELD, "IFV",    0     ),
-        new DatumDef(DataType.LABELED_TFIELD, "NULB",   1     ), 
+        new DatumDef(DataType.LABELED_TFIELD, "NULB",   1     ),
         new DatumDef(DataType.LABELED_TFIELD, "RMIN",   1     ),
-        new DatumDef(DataType.LABELED_TFIELD, "NR",     1     ), 
+        new DatumDef(DataType.LABELED_TFIELD, "NR",     1     ),
         new DatumDef(DataType.LABELED_TFIELD, "THMIN",  0.0000),
-        new DatumDef(DataType.LABELED_TFIELD, "DTHET",  1.0000), 
-        new DatumDef(DataType.LABELED_TFIELD, "NTHET", 91     )    
+        new DatumDef(DataType.LABELED_TFIELD, "DTHET",  1.0000),
+        new DatumDef(DataType.LABELED_TFIELD, "NTHET", 91     )
     };
 
     // PAR tab
-    static DatumDef[] dataPar = { 
+    static DatumDef[] dataPar = {
         new DatumDef(DataType.LABELED_TFIELD, "NREF",   25    ),
-        new DatumDef(DataType.LABELED_TFIELD, "NPR",    0     ), 
+        new DatumDef(DataType.LABELED_TFIELD, "NPR",    0     ),
         new DatumDef(DataType.LABELED_TFIELD, "MAXLLS", 0.5000),
-        new DatumDef(DataType.LABELED_TFIELD, "MINCUT", 0.0000), 
+        new DatumDef(DataType.LABELED_TFIELD, "MINCUT", 0.0000),
         new DatumDef(DataType.LABELED_TFIELD, "XINT",   0.0000),
-        new DatumDef(DataType.LABELED_TFIELD, "BINT",   0     ), 
+        new DatumDef(DataType.LABELED_TFIELD, "BINT",   0     ),
         new DatumDef(DataType.LABELED_TFIELD, "INTL",   0     ),
-        new DatumDef(DataType.LABELED_TFIELD, "NBG",    1     ), 
+        new DatumDef(DataType.LABELED_TFIELD, "NBG",    1     ),
         new DatumDef(DataType.LABELED_TFIELD, "BG2",    0     ),
-        new DatumDef(DataType.LABELED_TFIELD, "BG3",    0     ), 
+        new DatumDef(DataType.LABELED_TFIELD, "BG3",    0     ),
         new DatumDef(DataType.LABELED_TFIELD, "CENB",  90.0000),
         new DatumDef(DataType.LABELED_TFIELD, "SIGB",   0.0000),
     };
 
     // BG tab
-    static DatumDef[] dataBg = { 
+    static DatumDef[] dataBg = {
         new DatumDef(DataType.LABELED_TFIELD, "NG",     1     ),
-        new DatumDef(DataType.LABELED_TFIELD, "SIG1",  10.0000), 
+        new DatumDef(DataType.LABELED_TFIELD, "SIG1",  10.0000),
         new DatumDef(DataType.LABELED_TFIELD, "SIG2",   0.0000),
-        new DatumDef(DataType.LABELED_TFIELD, "DCEN",   0.0000), 
+        new DatumDef(DataType.LABELED_TFIELD, "DCEN",   0.0000),
         new DatumDef(DataType.LABELED_TFIELD, "GRAT",   0.0000)
     };
-    
+
 } // class DataControl
 
 
 /**
- * 
- *  DatumDef is an auxiliary class holding a datum's name, type, 
+ *
+ *  DatumDef is an auxiliary class holding a datum's name, type,
  *  value and the associated gui component
  *
  */
 class DatumDef {
-    
-    private DataType type; 
+
+    private DataType type;
     private String name;
     private double value;
     private JComponent gui;
-    
+
     DatumDef(DataType type, String name, double value) {
         this.type = type;
         this.name = name;
         this.value = value;
         this.gui = null;
     }
-    
+
     DataType getType()         { return type;  }
-    String getName()           { return name;  }        
+    String getName()           { return name;  }
     double getValue()          { return value; }
-    JComponent getGui()        { return gui;   }    
-    
+    JComponent getGui()        { return gui;   }
+
     void setType(DataType t)   { type = t;     }
     void setName(String s)     { name = s;     }
-    void setGui(JComponent j)  { gui = j;      }        
-    
-    /** 
+    void setGui(JComponent j)  { gui = j;      }
+
+    /**
      * return value in the string form of integer or double
      */
     String getStringValue() {
@@ -146,16 +146,16 @@ class DatumDef {
     /**
      * called upon reading input file and parameters
      */
-    void setValue(double d) {  
+    void setValue(double d) {
             value = d;
             System.out.println(name + " set to " + d);
             setGuiContent();
     }
-    
+
     /**
      * called upon actionPerformed from gui, i.e., user input
      * return null if input valid, else return an error string
-     * 
+     *
      * @Attention("We return null for success!")
      * @return an error string
      */
@@ -165,9 +165,9 @@ class DatumDef {
                 value = Integer.parseInt(v);
             } else {
                 value = Double.parseDouble(v);
-            }    
+            }
             System.out.println(name + " set to " + v);
-            setGuiContent();  
+            setGuiContent();
             return null;
         }
         catch(NumberFormatException e) {
@@ -175,10 +175,10 @@ class DatumDef {
             System.out.println(err);
             setGuiContent();
             return err;
-        }                
+        }
     }
-    
-    /** 
+
+    /**
      * push value to gui when value has been updated from non-gui code
      * do nothing if the gui is not a text field
      */
@@ -187,12 +187,12 @@ class DatumDef {
             ((JTextField)gui).setText(getStringValue());
         }
     }
-    
-    /** 
+
+    /**
      * if a datum's name starts with I or N, it is an int
      */
     private boolean isInt() {
-        return (name.charAt(0) == 'I' || name.charAt(0) == 'N'); 
+        return (name.charAt(0) == 'I' || name.charAt(0) == 'N');
     }
-    
+
 } // class DatumDef

@@ -6,7 +6,7 @@
  *
  * - Redistributions of source code must retain the above copyright notice, this list
  *   of conditions and the following disclaimer.
- * 
+ *
  * - Redistributions in binary form must reproduce the above copyright notice, this
  *   list of conditions and the following disclaimer listed in this license in the
  *   documentation and/or other materials provided with the distribution.
@@ -49,7 +49,7 @@ import javax.swing.border.Border;
  * |         |   |
  * |_________|   |
  * |____2____|___|
- * 
+ *
  * 0: menu bar, 1: plotting panel, 2: message panel, 3: control panel
  * </pre>
  */
@@ -66,20 +66,20 @@ public final class UIMain {
 
     // no instantiation
     private UIMain() { }
-       
+
     /**
-     * Create main UI and data hooks. Synchronized to ensure main UI creation happen 
+     * Create main UI and data hooks. Synchronized to ensure main UI creation happen
      * only once. No use of double-checked locking which does not work on all JVMs.
      *
-     * @param w  width of the main window at startup         
-     * @param h  height of the main window at startup   
+     * @param w  width of the main window at startup
+     * @param h  height of the main window at startup
      * @param x  x-coordinate of the main window's startup top-left position
-     * @param y  y-coordinate of the main window's startup top-left position    
-     * @param wCtrl  if > 0 overwrite default wControl       
+     * @param y  y-coordinate of the main window's startup top-left position
+     * @param wCtrl  if > 0 overwrite default wControl
      * @param hMess  if > 0 overwrite default hMessage
      */
     public static synchronized void initialize(int w, int h, int x, int y, int wCtrl, int hMess) {
-        
+
         if(mainFrame != null) {
             return;
         }
@@ -91,7 +91,7 @@ public final class UIMain {
         if(hMess > 0) {
             hMessage = hMess;
         }
-        
+
         mainFrame = new JFrame(FAD_VS);
         mainFrame.setBounds(x, y, w, h);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -110,10 +110,10 @@ public final class UIMain {
         // and let uiPloting take on resizing (BorderLayout.CENTER is greedy)
         JPanel plotmes = new JPanel(new BorderLayout());
         plotmes.add(uiPloting, BorderLayout.CENTER);
-        plotmes.add(uiMessage, BorderLayout.PAGE_END); 
+        plotmes.add(uiMessage, BorderLayout.PAGE_END);
         mainFrame.add(plotmes, BorderLayout.CENTER);
-        mainFrame.add(uiControl, BorderLayout.LINE_END); 
-        
+        mainFrame.add(uiControl, BorderLayout.LINE_END);
+
         mainFrame.setVisible(true);
     }
 
@@ -123,8 +123,8 @@ public final class UIMain {
      *              wControl, hMessage: width of control panel and height of message panel.
      */
     /*
-     *  TODO: parse/check command line argument & configuration file (~/.fad) 
-     */ 
+     *  TODO: parse/check command line argument & configuration file (~/.fad)
+     */
     public static void main(String[] args) {
 
         EventQueue.invokeLater(new Runnable() {

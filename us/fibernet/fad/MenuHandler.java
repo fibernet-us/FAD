@@ -6,7 +6,7 @@
  *
  * - Redistributions of source code must retain the above copyright notice, this list
  *   of conditions and the following disclaimer.
- * 
+ *
  * - Redistributions in binary form must reproduce the above copyright notice, this
  *   list of conditions and the following disclaimer listed in this license in the
  *   documentation and/or other materials provided with the distribution.
@@ -30,9 +30,9 @@ package us.fibernet.fad;
 
 /**
  * MenuHandler defines a common interface for all MenuHandlers.
- * 
- * No common method is defined. When a concrete MenuHandler is called, 
- * caller looks up the MenuHandler to see if it has certain methods, 
+ *
+ * No common method is defined. When a concrete MenuHandler is called,
+ * caller looks up the MenuHandler to see if it has certain methods,
  * and if it does, caller calls the methods; if not, caller complains.
  */
 public interface MenuHandler {
